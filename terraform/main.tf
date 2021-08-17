@@ -124,11 +124,6 @@ resource "azurerm_container_group" "jmeter_controller" {
 
   restart_policy = "Never"
 
-  image_registry_credential {
-    server   = data.azurerm_container_registry.jmeter_acr.login_server
-    username = data.azurerm_container_registry.jmeter_acr.admin_username
-    password = data.azurerm_container_registry.jmeter_acr.admin_password
-  }
 
   container {
     name   = "jmeter"
