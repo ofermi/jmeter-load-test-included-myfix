@@ -83,12 +83,7 @@ resource "azurerm_container_group" "jmeter_workers" {
 
   network_profile_id = azurerm_network_profile.jmeter_net_profile.id
 
-  image_registry_credential {
-    server   = data.azurerm_container_registry.jmeter_acr.login_server
-    username = data.azurerm_container_registry.jmeter_acr.admin_username
-    password = data.azurerm_container_registry.jmeter_acr.admin_password
-  }
-
+  
   container {
     name   = "jmeter"
     image  = var.JMETER_DOCKER_IMAGE
