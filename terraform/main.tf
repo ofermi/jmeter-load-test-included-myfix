@@ -72,7 +72,7 @@ resource "azurerm_storage_share" "jmeter_share" {
   quota                = var.JMETER_STORAGE_QUOTA_GIGABYTES
 }
 
-resource "azurerm_container_group" "jmeter_workers_ofer" {
+resource "azurerm_container_group" "jmeter_workers" {
   count               = var.JMETER_WORKERS_COUNT
   name                = "${var.PREFIX}-worker${count.index}"
   location            = azurerm_resource_group.jmeter_rg.location
@@ -117,7 +117,7 @@ resource "azurerm_container_group" "jmeter_workers_ofer" {
   }
 }
 
-resource "azurerm_container_group" "jmeter_controller_ofer" {
+resource "azurerm_container_group" "jmeter_controller" {
   name                = "${var.PREFIX}-controller"
   location            = azurerm_resource_group.jmeter_rg.location
   resource_group_name = azurerm_resource_group.jmeter_rg.name
