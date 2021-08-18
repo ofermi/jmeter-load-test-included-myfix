@@ -1,6 +1,6 @@
 trigger: none
 
-pool: CustomVMagent
+pool: Self-hosted-pool
 
 variables:
 - group: JMETER_TERRAFORM_SETTINGS
