@@ -11,7 +11,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '02dffdd6-0ad1-4c0f-9f08-283225561431'
-  imageRepository: 'jmeterloadtest'
+  imageRepository: 'jmeterloadtestofer'
   containerRegistry: 'jmeterpoc.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/docker/Dockerfile'
   tag: '$(Build.BuildId)'
@@ -29,7 +29,7 @@ stages:
 - task: Docker@2
   inputs:
     containerRegistry: 'forselfagent'
-    repository: 'newimage'
+    repository: 'newimageofer'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     steps:
