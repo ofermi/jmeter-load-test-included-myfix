@@ -6,7 +6,7 @@ trigger:
     include:
     - docker/*
 
-pool: Self-hosted-pool
+pool: Default
 
 variables:
 - group: JMETER_TERRAFORM_SETTINGS
