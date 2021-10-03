@@ -84,7 +84,7 @@ steps:
       echo "`date`: Started!"
       while [ $(az container show -g $RG -n $NAME --query "containers[0].instanceView.currentState.state" -o tsv) == "Running" ]; do
         echo "`date`: Still Running..."
-        sleep 20
+        sleep 200
       done
       echo "`date`: Finished!"
   displayName: 'TEST: Wait Test Execution'
