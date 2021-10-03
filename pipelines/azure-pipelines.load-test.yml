@@ -26,7 +26,8 @@ steps:
       echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
       sudo apt-get update
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
-      - task: AzureCLI@2
+
+- task: AzureCLI@2
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
     workingDirectory: ./terraform
