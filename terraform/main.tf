@@ -116,11 +116,9 @@ resource "azurerm_container_group" "jmeter_workers" {
     ]
   }
 }
-resource "null_resource" "previous" {}
+
 
 resource "time_sleep" "wait_120_seconds" {
-  depends_on = [null_resource.previous]
-
   create_duration = "120s"
 }
 
