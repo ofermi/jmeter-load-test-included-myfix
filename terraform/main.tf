@@ -117,21 +117,15 @@ resource "azurerm_container_group" "jmeter_workers" {
   }
 }
 
-resource "null_resource" "previous" {}
-
+ 
 resource "time_sleep" "wait_120_seconds" {
-  depends_on = [null_resource.previous]
-
+  depends_on = [azurerm_container_group.jmeter_workers]
   create_duration = "120s"
 }
 
-# This resource will create (at least) 30 seconds after null_resource.previous
-resource "null_resource" "next" {
-  depends_on = [time_sleep.wait_120_seconds]
-}
- 
-
 resource "azurerm_container_group" "jmeter_controller" {
+   depends_on = [time_sleep.wait_120_seconds]
+
   name                = "${var.PREFIX}-controller"
   location            = azurerm_resource_group.jmeter_rg.location
   resource_group_name = azurerm_resource_group.jmeter_rg.name
