@@ -116,8 +116,14 @@ resource "azurerm_container_group" "jmeter_workers" {
     ]
   }
 }
+ 
+resource "time_sleep" "wait_120_seconds" {
+  depends_on = [azurerm_container_group.jmeter_workers]
+  create_duration = "120s"
+}
 
 resource "azurerm_container_group" "jmeter_controller" {
+   depends_on = [time_sleep.wait_120_seconds]
   name                = "${var.PREFIX}-controller"
   location            = azurerm_resource_group.jmeter_rg.location
   resource_group_name = azurerm_resource_group.jmeter_rg.name
@@ -158,7 +164,7 @@ resource "azurerm_container_group" "jmeter_controller" {
     commands = [
       "/bin/sh",
       "-c",
-      "cd /jmeter; /entrypoint.sh -n -J server.rmi.ssl.disable=true -t ${var.JMETER_JMX_FILE} -l ${var.JMETER_RESULTS_FILE} -e -o ${var.JMETER_DASHBOARD_FOLDER} -R ${join(",", "${azurerm_container_group.jmeter_workers.*.ip_address}")} ${var.JMETER_EXTRA_CLI_ARGUMENTS}",
+      "cd /jmeter; /entrypoint.sh -n -J server.rmi.ssl.disable=true -t ${var.JMETER_JMX_FILE} -l ${var.JMETER_RESULTS_FILE} -e -o ${var.JMETER_DASHBOARD_FOLDER} -R ${join(",","${azurerm_container_group.jmeter_workers.*.ip_address}")} ${var.JMETER_EXTRA_CLI_ARGUMENTS}",
     ]
   }
 }
