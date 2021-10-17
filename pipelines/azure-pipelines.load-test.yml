@@ -23,8 +23,8 @@ steps:
     inlineScript: |
       az acr login -n $(TF_VAR_JMETER_ACR_NAME)
       docker pull $(TF_VAR_JMETER_DOCKER_IMAGE)
-      echo "ofer check for dleep"
-      SLEEP 30
+      echo "Starting sleep 30"
+      sleep 30
 
 - script: |
     docker run --name=jmx-validator -v $(JMETER_DIRECTORY_INPUT):/jmeter -w /jmeter \
@@ -114,7 +114,7 @@ steps:
     inlineScript: |
      echo "OFER"
      echo "Starting sleep 120"
-     SLEEP 120
+     sleep 120
      echo " before az container logs"
      echo $(terraform output jmeter_controller_name)
      echo $(terraform output resource_group_name)
