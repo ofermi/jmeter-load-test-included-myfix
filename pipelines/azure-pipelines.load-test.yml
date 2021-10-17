@@ -102,6 +102,12 @@ steps:
       sudo apt-get update
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
       
+
+- task: Delay@1
+  inputs:
+      delayForMinutes: '2' 
+
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
@@ -109,6 +115,12 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
+     echo "OFER"
+     echo " before az container logs"
+     echo $(terraform output jmeter_controller_name)
+     echo $(terraform output resource_group_name)
+     echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
+     echo "end before az container logs"
       az container logs -g $(terraform output resource_group_name) -n $(terraform output jmeter_controller_name)
       RESOURCE_GROUP=$(terraform output resource_group_name)
       echo -n $(terraform output jmeter_workers_names) | xargs -t -d "," -I '{}' -n1 az container logs -g $RESOURCE_GROUP -n {}
@@ -148,7 +160,9 @@ steps:
   condition: succeededOrFailed()
   displayName: 'RESULTS: Publish Load Test Artifacts'
 
-#- script: terraform destroy -auto-approve
-#  condition: always()
-#  workingDirectory: ./terraform
-#  displayName: 'TEARDOWN: Run Terraform Destroy'
+- script: terraform destroy -auto-approve
+  condition: always()
+  workingDirectory: ./terraform
+  displayName: 'TEARDOWN: Run Terraform Destroy'
+
+
