@@ -23,8 +23,7 @@ steps:
     inlineScript: |
       az acr login -n $(TF_VAR_JMETER_ACR_NAME)
       docker pull $(TF_VAR_JMETER_DOCKER_IMAGE)
-      echo "Starting sleep 30"
-      sleep 30
+
 
 - script: |
     docker run --name=jmx-validator -v $(JMETER_DIRECTORY_INPUT):/jmeter -w /jmeter \
