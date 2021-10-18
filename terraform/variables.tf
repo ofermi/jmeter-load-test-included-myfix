@@ -3,6 +3,11 @@ variable "RESOURCE_GROUP_NAME" {
   default = "jmeter"
 }
 
+
+variable "number" {
+    default = 1
+}
+
 variable "LOCATION" {
   type    = string
   default = "eastus"
