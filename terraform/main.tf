@@ -117,13 +117,14 @@ resource "azurerm_container_group" "jmeter_workers" {
   }
 }
  
-resource "time_sleep" "wait_600_seconds" {
-  depends_on = [azurerm_container_group.jmeter_workers]
-  create_duration = "600s"
-}
+#resource "time_sleep" "wait_600_seconds" {
+#  depends_on = [azurerm_container_group.jmeter_workers]
+ #create_duration = "600s"
+#}
 
 resource "azurerm_container_group" "jmeter_controller" {
-   depends_on = [time_sleep.wait_600_seconds]
+ #  depends_on = [time_sleep.wait_600_seconds]
+  count = "${var.number_controller}"
   name                = "${var.PREFIX}-controller_new"
   location            = azurerm_resource_group.jmeter_rg.location
   resource_group_name = azurerm_resource_group.jmeter_rg.name
