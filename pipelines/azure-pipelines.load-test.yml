@@ -57,7 +57,7 @@ steps:
 
 - script: terraform apply -target azurerm_storage_share.jmeter_share -auto-approve
   workingDirectory: ./terraform
-  displayName: 'SETUP: Run Terraform Apply (target=file share)'
+  displayName: 'SETUP: Run Terraform Apply create storage (target=file share)'
 
 - script: |
     SAS_END=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'` && \
@@ -71,7 +71,7 @@ steps:
 
 - script: terraform apply -var="number_controller=0" -auto-approve
   workingDirectory: ./terraform
-  displayName: 'SETUP: Run Terraform Apply (target=all)'
+  displayName: 'SETUP: Run Terraform Apply create Workers (target=all)'
 
 - task: AzureCLI@2
   inputs:
