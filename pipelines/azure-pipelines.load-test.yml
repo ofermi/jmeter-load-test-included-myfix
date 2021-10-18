@@ -69,7 +69,7 @@ steps:
   workingDirectory: ./terraform
   displayName: 'SETUP: Transfer JMeter Files to Storage Account'
 
-- script: terraform apply -auto-approve
+- script: terraform apply -var="number_controller=0" -auto-approve
   workingDirectory: ./terraform
   displayName: 'SETUP: Run Terraform Apply (target=all)'
 
