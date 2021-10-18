@@ -4,7 +4,7 @@ variable "RESOURCE_GROUP_NAME" {
 }
 
 
-variable "number" {
+variable "number_controller" {
     default = 1
 }
 
