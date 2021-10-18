@@ -124,8 +124,8 @@ resource "azurerm_container_group" "jmeter_workers" {
 
 resource "azurerm_container_group" "jmeter_controller" {
  #  depends_on = [time_sleep.wait_600_seconds]
-  count = 0
-  #count = "${var.number_controller}"
+  #count = 0
+  count = "${var.number_controller}"
   name                = "${var.PREFIX}-controller_new[count.index]"
   location            = azurerm_resource_group.jmeter_rg.location
   resource_group_name = azurerm_resource_group.jmeter_rg.name
