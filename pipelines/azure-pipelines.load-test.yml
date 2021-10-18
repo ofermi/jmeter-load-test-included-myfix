@@ -73,6 +73,11 @@ steps:
   workingDirectory: ./terraform
   displayName: 'SETUP: Run Terraform Apply create Workers (target=all)'
 
+- script: terraform apply -var="number_controller=1" -target azurerm_container_group.jmeter_controller -auto-approve
+  workingDirectory: ./terraform
+  displayName: 'SETUP: Run Terraform Apply create Controller (target=controller)'
+
+
 - task: AzureCLI@2
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
