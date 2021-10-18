@@ -20,11 +20,11 @@ output "storage_file_share_url" {
 }
 
 output "jmeter_controller_name" {
-  value = ["${azurerm_container_group.jmeter_controller.0.name}"]
+  value = azurerm_container_group.jmeter_controller.0.name
 }
 
 output "jmeter_controller_ip" {
-  value = ["${azurerm_container_group.jmeter_controller.0.ip_address}"]
+  value = azurerm_container_group.jmeter_controller.0.ip_address
 }
 
 output "jmeter_workers_names" {
