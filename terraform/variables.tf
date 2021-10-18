@@ -5,6 +5,7 @@ variable "RESOURCE_GROUP_NAME" {
 
 
 variable "number_controller" {
+   type    = number
     default = 1
 }
 
