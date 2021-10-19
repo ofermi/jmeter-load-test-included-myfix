@@ -13,7 +13,7 @@ data  "azurerm_subnet" "jmeter_subnet" {
 
 data   "azurerm_storage_account" "jmeter_storage" {
   resource_group_name  = "jmeter"                 = "jmeter"
-  storage_account_name = "jmeterstoraged9541e99"
+  name = "jmeterstoraged9541e99"
   location            = "westeurope"
 }
 
