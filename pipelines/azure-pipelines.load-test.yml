@@ -39,8 +39,9 @@ steps:
 
       
      
-      jmeter_controller_name=`"[ "jmeter1-controller_new", ]"`
-      new_jmeter_controller_name= `echo $jmeter_controller_name |  awk -F '"' '{print $2}'`
+     # jmeter_controller_name=`"[ "jmeter1-controller_new", ]"`
+     # new_jmeter_controller_name= `echo $jmeter_controller_name |  awk -F '"' '{print $2}'`
+     new_jmeter_controller_name= `echo "[ "jmeter1-controller_new", ]" | |awk '{print $2}' |awk -F "," '{print $1}'
      echo "after new_jmeter_controller_name set" 
      echo $new_jmeter_controller_name
       
