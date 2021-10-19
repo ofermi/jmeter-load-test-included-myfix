@@ -24,7 +24,6 @@ steps:
       az acr login -n $(TF_VAR_JMETER_ACR_NAME)
       docker pull $(TF_VAR_JMETER_DOCKER_IMAGE)
 
-
 - script: |
     docker run --name=jmx-validator -v $(JMETER_DIRECTORY_INPUT):/jmeter -w /jmeter \
       --entrypoint "TestPlanCheck.sh" $(TF_VAR_JMETER_DOCKER_IMAGE) \
@@ -107,7 +106,11 @@ steps:
       echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
       sudo apt-get update
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
-      
+
+
+
+
+    
 - task: AzureCLI@2
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
@@ -115,17 +118,29 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-     echo "OFER"
+      az container logs -g $(terraform output resource_group_name) -n $(terraform output jmeter_controller_name)
+      RESOURCE_GROUP=$(terraform output resource_group_name)
+      echo -n $(terraform output jmeter_workers_names) | xargs -t -d "," -I '{}' -n1 az container logs -g $RESOURCE_GROUP -n {}
+  displayName: 'RESULTS: Collect JMeter Controller and Worker Logs'
+
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
+    workingDirectory: ./terraform
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+    echo "OFER"
      echo "before az container logs"
      echo $(terraform output jmeter_controller_name)
-  #   echo $(terraform output jmeter_controller_name) | awk -F '"' '{print $2}'
-  #   new_jmeter_controller_name = $(terraform output jmeter_controller_name) | awk -F \'"\' '{print $2}'
+    #   echo $(terraform output jmeter_controller_name) | awk -F '"' '{print $2}'
+    #   new_jmeter_controller_name = $(terraform output jmeter_controller_name) | awk -F \'"\' '{print $2}'
      echo $new_jmeter_controller_name
      echo $(terraform output resource_group_name)
      echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
      echo "end before az container logs"
     #az container logs -g $(terraform output resource_group_name) -n $new_jmeter_controller_name
-      
       az container logs -g $(terraform output resource_group_name) -n $(terraform output jmeter_controller_name)
       RESOURCE_GROUP=$(terraform output resource_group_name)
       echo -n $(terraform output jmeter_workers_names) | xargs -t -d "," -I '{}' -n1 az container logs -g $RESOURCE_GROUP -n {}
