@@ -1,6 +1,6 @@
 variable "RESOURCE_GROUP_NAME" {
   type    = string
-  default = "jmeter7"
+  default = "jmeter8"
 }
 
 
@@ -16,7 +16,7 @@ variable "LOCATION" {
 
 variable "PREFIX" {
   type    = string
-  default = "jmeter7"
+  default = "jmeter8"
 }
 
 variable "VNET_ADDRESS_SPACE" {
