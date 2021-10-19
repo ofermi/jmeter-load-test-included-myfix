@@ -118,9 +118,14 @@ steps:
     inlineScript: |
      echo "OFER"
 
-     echo " before az container logs"
+     echo "before az container logs"
      echo $(terraform output jmeter_controller_name)
-     echo $(terraform output jmeter_controller_name1)
+     echo $(terraform output jmeter_controller_name) | awk -F '"' '{print $2}'
+     new_jmeter_controller_name =$(terraform output jmeter_controller_name) | awk -F '"' '{print $2}'
+      terraform output jmeter_controller_name= $new_jmeter_controller_name
+      echo $(terraform output jmeter_controller_name)
+    
+
      echo $(terraform output resource_group_name)
      echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
      echo "end before az container logs"
