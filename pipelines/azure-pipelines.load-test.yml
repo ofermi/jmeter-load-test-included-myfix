@@ -122,13 +122,13 @@ steps:
      echo $(terraform output jmeter_controller_name)
      echo $(terraform output jmeter_controller_name) | awk  -F '\"' '{print $2}'
      test=echo $(terraform output jmeter_controller_name) | awk  '{print $0}'
-     echo "test="+$test
+     echo "test=$test"
      my_jmeter_controller_name= echo $(terraform output jmeter_controller_name)
-     echo "my_jmeter_controller_name="+$my_jmeter_controller_name 
+     echo "my_jmeter_controller_name=$my_jmeter_controller_name"
      
      new_jmeter_controller_name=`echo $my_jmeter_controller_name  |awk -F "\"" '{print $2}'`
      echo "after new_jmeter_controller_name set" 
-     echo "new_jmeter_controller_name="+$new_jmeter_controller_name
+     echo "new_jmeter_controller_name=$new_jmeter_controller_name"
      
      echo $(terraform output resource_group_name)
      echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
