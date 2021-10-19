@@ -11,11 +11,11 @@ data  "azurerm_subnet" "jmeter_subnet" {
 
 
 
-data   "azurerm_storage_account" "jmeter_storage" {
-  resource_group_name  = "jmeter"                 
-  name = "jmeterstoraged9541e99"
-  location            = "westeurope"
-}
+#data   "azurerm_storage_account" "jmeter_storage" {
+ # resource_group_name  = "jmeter"                 
+#  name = "jmeterstoraged9541e99"
+ # location            = "westeurope"
+#}
 
 data "azurerm_network_profile" "jmeter_net_profile" {
   name                = "${var.PREFIX}netprofile"
@@ -104,7 +104,7 @@ resource "random_id" "random" {
 
 resource "azurerm_storage_share" "jmeter_share" {
   name                 = "jmeter"
-  storage_account_name = data.azurerm_storage_account.jmeter_storage.name
+  storage_account_name = azurerm_storage_account.jmeter_storage.name
   quota                = var.JMETER_STORAGE_QUOTA_GIGABYTES
 }
 
@@ -140,8 +140,8 @@ resource "azurerm_container_group" "jmeter_workers" {
       name                 = "jmeter"
       mount_path           = "/jmeter"
       read_only            = true
-      storage_account_name = data.azurerm_storage_account.jmeter_storage.name
-      storage_account_key  = data.azurerm_storage_account.jmeter_storage.primary_access_key
+      storage_account_name = azurerm_storage_account.jmeter_storage.name
+      storage_account_key  = azurerm_storage_account.jmeter_storage.primary_access_key
       share_name           = azurerm_storage_share.jmeter_share.name
     }
 
@@ -194,8 +194,8 @@ resource "azurerm_container_group" "jmeter_controller" {
       name                 = "jmeter"
       mount_path           = "/jmeter"
       read_only            = false
-      storage_account_name = data.azurerm_storage_account.jmeter_storage.name
-      storage_account_key  = data.azurerm_storage_account.jmeter_storage.primary_access_key
+      storage_account_name = azurerm_storage_account.jmeter_storage.name
+      storage_account_key  = azurerm_storage_account.jmeter_storage.primary_access_key
       share_name           = azurerm_storage_share.jmeter_share.name
     }
 
