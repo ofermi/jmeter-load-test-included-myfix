@@ -75,7 +75,7 @@ resource "azurerm_network_profile" "jmeter_net_profile" {
 
     ip_configuration {
       name      = "${var.PREFIX}ipconfig"
-      subnet_id = azurerm_subnet.jmeter_subnet.id
+      subnet_id = data.azurerm_subnet.jmeter_subnet.id
     }
   }
 }
@@ -90,7 +90,7 @@ resource "azurerm_storage_account" "jmeter_storage" {
 
   network_rules {
     default_action             = "Allow"
-    virtual_network_subnet_ids = ["${azurerm_subnet.jmeter_subnet.id}"]
+    virtual_network_subnet_ids = ["${data.azurerm_subnet.jmeter_subnet.id}"]
   }
 }
 
