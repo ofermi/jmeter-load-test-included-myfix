@@ -71,20 +71,20 @@ resource "random_id" "random" {
  # service_endpoints = ["Microsoft.Storage"]
 #}
 
-#resource "azurerm_network_profile" "jmeter_net_profile" {
-#  name                = "${var.PREFIX}netprofile"
- # location            = var.LOCATION
- # resource_group_name = var.RESOURCE_GROUP_NAME
+resource "azurerm_network_profile" "jmeter_net_profile" {
+  name                = "${var.PREFIX}netprofile"
+  location            = var.LOCATION
+  resource_group_name = var.RESOURCE_GROUP_NAME
 
-#  container_network_interface {
- #   name = "${var.PREFIX}cnic"
+  container_network_interface {
+    name = "${var.PREFIX}cnic"
 
- #   ip_configuration {
- #     name      = "${var.PREFIX}ipconfig"
-  #    subnet_id = data.azurerm_subnet.jmeter_subnet.id
-  #  }
- # }
-#}
+   ip_configuration {
+      name      = "${var.PREFIX}ipconfig"
+      subnet_id = data.azurerm_subnet.jmeter_subnet.id
+    }
+  }
+}
 
 resource "azurerm_storage_account" "jmeter_storage" {
   name                = "${var.PREFIX}storage${random_id.random.hex}"
