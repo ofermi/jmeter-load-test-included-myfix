@@ -131,7 +131,8 @@ steps:
      echo "test1=$test1"
      echo $test1 | awk -F '\"'  '{print $0","$1","$2}' 
      
-
+     export mycontr=$(test1 | grep 'controller'  | awk '{print $0","$2","$1}')
+     echo "mycontr=$mycontr"
 
      export mycontr=$((terraform output jmeter_controller_name) | grep 'controller'  | awk '{print $0","$2","$1}')
      echo "mycontr=$mycontr"
