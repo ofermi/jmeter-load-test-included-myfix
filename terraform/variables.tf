@@ -1,6 +1,6 @@
 variable "RESOURCE_GROUP_NAME" {
   type    = string
-  default = "jmeter_new1"
+  default = "jmeter1"
 }
 
 
@@ -21,12 +21,12 @@ variable "PREFIX" {
 
 variable "VNET_ADDRESS_SPACE" {
   type    = string
-  default = "30.0.0.0/16"
+  default = "10.0.0.0/16"
 }
 
 variable "SUBNET_ADDRESS_PREFIX" {
   type    = string
-  default = "30.0.0.0/24"
+  default = "10.0.0.0/24"
 }
 
 variable "JMETER_WORKERS_COUNT" {
