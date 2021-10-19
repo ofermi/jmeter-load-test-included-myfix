@@ -3,80 +3,116 @@ data "azurerm_container_registry" "jmeter_acr" {
   resource_group_name = var.JMETER_ACR_RESOURCE_GROUP_NAME
 }
 
+data  "azurerm_subnet" "jmeter_subnet" {
+ name                 = "jmetersubnet"
+ resource_group_name  = "jmeter"
+ virtual_network_name = "jmetervnet"
+}
+
+
+
+data   "azurerm_storage_account" "jmeter_storage" {
+  name                 = "jmeter"
+  storage_account_name = "jmeterstoraged9541e99"
+  location            = "westeurope"
+}
+
+data "azurerm_network_profile" "jmeter_net_profile" {
+  name                = "${var.PREFIX}netprofile"
+  location            = "westeurope"
+  resource_group_name = "jmeter"
+ 
+}
+
 resource "random_id" "random" {
   byte_length = 4
 }
 
-resource "azurerm_resource_group" "jmeter_rg" {
-  name     = var.RESOURCE_GROUP_NAME
-  location = var.LOCATION
-}
+#resource "azurerm_resource_group" "jmeter_rg" {
+ # name     = var.RESOURCE_GROUP_NAME
+ # location = var.LOCATION
 
-resource "azurerm_virtual_network" "jmeter_vnet" {
-  name                = "${var.PREFIX}vnet"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
-  address_space       = ["${var.VNET_ADDRESS_SPACE}"]
-}
+ # tags = {
+ #   Application = var.JMETER_TAG_APPLICATION
+ #   Environment= var.JMETER_TAG_ENVIRONMENT
+ # }
+#}
 
-resource "azurerm_subnet" "jmeter_subnet" {
-  name                 = "${var.PREFIX}subnet"
-  resource_group_name  = azurerm_resource_group.jmeter_rg.name
-  virtual_network_name = azurerm_virtual_network.jmeter_vnet.name
-  address_prefix       = var.SUBNET_ADDRESS_PREFIX
+#resource "azurerm_virtual_network" "jmeter_vnet" {
+#  name                = "${var.PREFIX}vnet"
+# location            = "westeurope"
+#  resource_group_name = "jmeter"
+#  address_space       = ["${var.VNET_ADDRESS_SPACE}"]
+ #   tags = {
+ #   Application = var.JMETER_TAG_APPLICATION
+  #  Environment= var.JMETER_TAG_ENVIRONMENT
+ # }
+#}
 
-  delegation {
-    name = "delegation"
 
-    service_delegation {
-      name    = "Microsoft.ContainerInstance/containerGroups"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
-    }
-  }
+#resource "azurerm_subnet" "jmeter_subnet" {
+#  name                 = "${var.PREFIX}subnet"
+  
+#  resource_group_name  = "jmeter"
+#  virtual_network_name = "jmetervnet"
+#  address_prefix       = var.SUBNET_ADDRESS_PREFIX
 
-  service_endpoints = ["Microsoft.Storage"]
-}
+#  delegation {
+#    name = "delegation"
 
-resource "azurerm_network_profile" "jmeter_net_profile" {
-  name                = "${var.PREFIX}netprofile"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
+ #   service_delegation {
+ #     name    = "Microsoft.ContainerInstance/containerGroups"
+ #     actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+#    }
+ # }
 
-  container_network_interface {
-    name = "${var.PREFIX}cnic"
+ # service_endpoints = ["Microsoft.Storage"]
+#}
 
-    ip_configuration {
-      name      = "${var.PREFIX}ipconfig"
-      subnet_id = azurerm_subnet.jmeter_subnet.id
-    }
-  }
-}
 
-resource "azurerm_storage_account" "jmeter_storage" {
-  name                = "${var.PREFIX}storage${random_id.random.hex}"
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
-  location            = azurerm_resource_group.jmeter_rg.location
 
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
 
-  network_rules {
-    default_action             = "Allow"
-    virtual_network_subnet_ids = ["${azurerm_subnet.jmeter_subnet.id}"]
-  }
-}
+
+#resource "azurerm_network_profile" "jmeter_net_profile" {
+#  name                = "${var.PREFIX}netprofile"
+ # location            = "westeurope"
+ # resource_group_name = "jmeter"
+
+#  container_network_interface {
+ #   name = "${var.PREFIX}cnic"
+
+ #   ip_configuration {
+ #     name      = "${var.PREFIX}ipconfig"
+  #    subnet_id = data.azurerm_subnet.jmeter_subnet.id
+  #  }
+ # }
+#}
+
+#resource "azurerm_storage_account" "jmeter_storage" {
+#  name                = "${var.PREFIX}storage${random_id.random.hex}"
+#  resource_group_name = "jmeter"
+#  location            = "westeurope"
+
+#  account_tier             = "Standard"
+ # account_replication_type = "LRS"
+
+ # network_rules {
+ #   default_action             = "Allow"
+ #   virtual_network_subnet_ids = ["${data.azurerm_subnet.jmeter_subnet.id}"]
+#  }
+#}
 
 resource "azurerm_storage_share" "jmeter_share" {
   name                 = "jmeter"
-  storage_account_name = azurerm_storage_account.jmeter_storage.name
+  storage_account_name = data.azurerm_storage_account.jmeter_storage.name
   quota                = var.JMETER_STORAGE_QUOTA_GIGABYTES
 }
 
 resource "azurerm_container_group" "jmeter_workers" {
   count               = var.JMETER_WORKERS_COUNT
   name                = "${var.PREFIX}-worker_new${count.index}"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
+  location            = "westeurope"
+  resource_group_name = "jmeter"
 
   ip_address_type = "private"
   os_type         = "Linux"
@@ -104,8 +140,8 @@ resource "azurerm_container_group" "jmeter_workers" {
       name                 = "jmeter"
       mount_path           = "/jmeter"
       read_only            = true
-      storage_account_name = azurerm_storage_account.jmeter_storage.name
-      storage_account_key  = azurerm_storage_account.jmeter_storage.primary_access_key
+      storage_account_name = data.azurerm_storage_account.jmeter_storage.name
+      storage_account_key  = data.azurerm_storage_account.jmeter_storage.primary_access_key
       share_name           = azurerm_storage_share.jmeter_share.name
     }
 
@@ -127,8 +163,8 @@ resource "azurerm_container_group" "jmeter_controller" {
   #count = 0
   count = "${var.number_controller}"
   name                = "${var.PREFIX}-controller_new"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
+  location            = "westeurope"
+  resource_group_name = "jmeter"
 
   ip_address_type = "private"
   os_type         = "Linux"
@@ -158,8 +194,8 @@ resource "azurerm_container_group" "jmeter_controller" {
       name                 = "jmeter"
       mount_path           = "/jmeter"
       read_only            = false
-      storage_account_name = azurerm_storage_account.jmeter_storage.name
-      storage_account_key  = azurerm_storage_account.jmeter_storage.primary_access_key
+      storage_account_name = data.azurerm_storage_account.jmeter_storage.name
+      storage_account_key  = data.azurerm_storage_account.jmeter_storage.primary_access_key
       share_name           = azurerm_storage_share.jmeter_share.name
     }
 
