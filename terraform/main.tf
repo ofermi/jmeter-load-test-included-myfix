@@ -14,7 +14,7 @@ data  "azurerm_subnet" "jmeter_subnet" {
 #data   "azurerm_storage_account" "jmeter_storage" {
  # resource_group_name  = "jmeter"                 
 #  name = "jmeterstoraged9541e99"
- # location            = "westeurope"
+ # location            = "eastus"
 #}
 
 data "azurerm_network_profile" "jmeter_net_profile" {
@@ -40,7 +40,7 @@ resource "random_id" "random" {
 
 #resource "azurerm_virtual_network" "jmeter_vnet" {
 #  name                = "${var.PREFIX}vnet"
-# location            = "westeurope"
+# location            = "eastus"
 #  resource_group_name = "jmeter"
 #  address_space       = ["${var.VNET_ADDRESS_SPACE}"]
  #   tags = {
@@ -75,7 +75,7 @@ resource "random_id" "random" {
 
 #resource "azurerm_network_profile" "jmeter_net_profile" {
 #  name                = "${var.PREFIX}netprofile"
- # location            = "westeurope"
+ # location            = "eastus"
  # resource_group_name = "jmeter"
 
 #  container_network_interface {
@@ -91,7 +91,7 @@ resource "random_id" "random" {
 resource "azurerm_storage_account" "jmeter_storage" {
   name                = "${var.PREFIX}storage${random_id.random.hex}"
   resource_group_name = "jmeter"
-  location            = "westeurope"
+  location            = "eastus"
 
   account_tier             = "Standard"
   account_replication_type = "LRS"
@@ -111,7 +111,7 @@ resource "azurerm_storage_share" "jmeter_share" {
 resource "azurerm_container_group" "jmeter_workers" {
   count               = var.JMETER_WORKERS_COUNT
   name                = "${var.PREFIX}-worker_new${count.index}"
-  location            = "westeurope"
+  location            = "eastus"
   resource_group_name = "jmeter"
 
   ip_address_type = "private"
@@ -163,7 +163,7 @@ resource "azurerm_container_group" "jmeter_controller" {
   #count = 0
   count = "${var.number_controller}"
   name                = "${var.PREFIX}-controller_new"
-  location            = "westeurope"
+  location            = "eastus"
   resource_group_name = "jmeter"
 
   ip_address_type = "private"
