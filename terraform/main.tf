@@ -3,16 +3,21 @@ data "azurerm_container_registry" "jmeter_acr" {
   resource_group_name = var.JMETER_ACR_RESOURCE_GROUP_NAME
 }
 
+data  "azurerm_resource_group" "jmeter_rg" {
+  name     = var.RESOURCE_GROUP_NAME
+  location =  var.LOCATION
+}
+
 data  "azurerm_subnet" "jmeter_subnet" {
- name                 = "jmetersubnet"
- resource_group_name  = "jmeter"
+ name                 = "${var.PREFIX}subvnet"
+ resource_group_name  = var.RESOURCE_GROUP_NAME
  virtual_network_name = "jmetervnet"
 }
 
 data "azurerm_virtual_network" "jmeter_vnet" {
  name                = "${var.PREFIX}vnet"
- location            = "eastus"
-  resource_group_name = "jmeter"
+ location            = var.LOCATION
+  resource_group_name = var.RESOURCE_GROUP_NAME
 }
 
 
@@ -21,9 +26,9 @@ resource "random_id" "random" {
 }
 
 #data   "azurerm_storage_account" "jmeter_storage" {
- # resource_group_name  = "jmeter"                 
+ # resource_group_name  = var.RESOURCE_GROUP_NAME                 
 #  name = "jmeterstoraged9541e99"
- # location            = "eastus"
+ # location            = var.LOCATION
 #}
 
 
@@ -40,8 +45,8 @@ resource "random_id" "random" {
 
 #resource "azurerm_virtual_network" "jmeter_vnet" {
 #  name                = "${var.PREFIX}vnet"
-# location            = "eastus"
-#  resource_group_name = "jmeter"
+# location            = var.LOCATION
+#  resource_group_name = var.RESOURCE_GROUP_NAME
 #  address_space       = ["${var.VNET_ADDRESS_SPACE}"]
  #   tags = {
  #   Application = var.JMETER_TAG_APPLICATION
@@ -53,7 +58,7 @@ resource "random_id" "random" {
 #resource "azurerm_subnet" "jmeter_subnet" {
 #  name                 = "${var.PREFIX}subnet"
   
-#  resource_group_name  = "jmeter"
+#  resource_group_name  = var.RESOURCE_GROUP_NAME
 #  virtual_network_name = "jmetervnet"
 #  address_prefix       = var.SUBNET_ADDRESS_PREFIX
 
@@ -71,8 +76,8 @@ resource "random_id" "random" {
 
 #resource "azurerm_network_profile" "jmeter_net_profile" {
 #  name                = "${var.PREFIX}netprofile"
- # location            = "eastus"
- # resource_group_name = "jmeter"
+ # location            = var.LOCATION
+ # resource_group_name = var.RESOURCE_GROUP_NAME
 
 #  container_network_interface {
  #   name = "${var.PREFIX}cnic"
@@ -86,8 +91,8 @@ resource "random_id" "random" {
 
 resource "azurerm_storage_account" "jmeter_storage" {
   name                = "${var.PREFIX}storage${random_id.random.hex}"
-  resource_group_name = "jmeter"
-  location            = "eastus"
+  resource_group_name = var.RESOURCE_GROUP_NAME
+  location            = var.LOCATION
 
   account_tier             = "Standard"
   account_replication_type = "LRS"
@@ -99,7 +104,7 @@ resource "azurerm_storage_account" "jmeter_storage" {
 }
 
 resource "azurerm_storage_share" "jmeter_share" {
-  name                 = "jmeter"
+  name                 = var.RESOURCE_GROUP_NAME
   storage_account_name = azurerm_storage_account.jmeter_storage.name
   quota                = var.JMETER_STORAGE_QUOTA_GIGABYTES
 }
@@ -107,8 +112,8 @@ resource "azurerm_storage_share" "jmeter_share" {
 resource "azurerm_container_group" "jmeter_workers" {
   count               = var.JMETER_WORKERS_COUNT
   name                = "${var.PREFIX}-worker_new${count.index}"
-  location            = "eastus"
-  resource_group_name = "jmeter"
+  location            = var.LOCATION
+  resource_group_name = var.RESOURCE_GROUP_NAME
 
   ip_address_type = "private"
   os_type         = "Linux"
@@ -122,7 +127,7 @@ resource "azurerm_container_group" "jmeter_workers" {
  }
 
   container {
-    name   = "jmeter"
+    name   = var.RESOURCE_GROUP_NAME
     image  = var.JMETER_DOCKER_IMAGE
     cpu    = var.JMETER_WORKER_CPU
     memory = var.JMETER_WORKER_MEMORY
@@ -133,7 +138,7 @@ resource "azurerm_container_group" "jmeter_workers" {
     }
 
     volume {
-      name                 = "jmeter"
+      name                 = var.RESOURCE_GROUP_NAME
       mount_path           = "/jmeter"
       read_only            = true
       storage_account_name = azurerm_storage_account.jmeter_storage.name
@@ -159,8 +164,8 @@ resource "azurerm_container_group" "jmeter_controller" {
   #count = 0
   count = "${var.number_controller}"
   name                = "${var.PREFIX}-controller_new"
-  location            = "eastus"
-  resource_group_name = "jmeter"
+  location            = var.LOCATION
+  resource_group_name = var.RESOURCE_GROUP_NAME
 
   ip_address_type = "private"
   os_type         = "Linux"
@@ -176,7 +181,7 @@ resource "azurerm_container_group" "jmeter_controller" {
   }
 
   container {
-    name   = "jmeter"
+    name   = var.RESOURCE_GROUP_NAME
     image  = var.JMETER_DOCKER_IMAGE
     cpu    = var.JMETER_CONTROLLER_CPU
     memory = var.JMETER_CONTROLLER_MEMORY
@@ -187,7 +192,7 @@ resource "azurerm_container_group" "jmeter_controller" {
     }
 
     volume {
-      name                 = "jmeter"
+      name                 = var.RESOURCE_GROUP_NAME
       mount_path           = "/jmeter"
       read_only            = false
       storage_account_name = azurerm_storage_account.jmeter_storage.name
