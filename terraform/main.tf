@@ -9,7 +9,11 @@ data  "azurerm_subnet" "jmeter_subnet" {
  virtual_network_name = "jmetervnet"
 }
 
-
+data "azurerm_virtual_network" "jmeter_vnet" {
+ name                = "${var.PREFIX}vnet"
+ location            = "eastus"
+  resource_group_name = "jmeter"
+}
 
 #data   "azurerm_storage_account" "jmeter_storage" {
  # resource_group_name  = "jmeter"                 
@@ -17,16 +21,7 @@ data  "azurerm_subnet" "jmeter_subnet" {
  # location            = "eastus"
 #}
 
-data "azurerm_network_profile" "jmeter_net_profile" {
-  name                = "${var.PREFIX}netprofile"
-  location            = "eastus"
-  resource_group_name = "jmeter"
- 
-}
 
-resource "random_id" "random" {
-  byte_length = 4
-}
 
 #resource "azurerm_resource_group" "jmeter_rg" {
  # name     = var.RESOURCE_GROUP_NAME
@@ -117,8 +112,8 @@ resource "azurerm_container_group" "jmeter_workers" {
   ip_address_type = "private"
   os_type         = "Linux"
 
-  network_profile_id = azurerm_network_profile.jmeter_net_profile.id
-
+ #  network_profile_id = azurerm_network_profile.jmeter_net_profile.id
+   network_profile_id = data.azurerm_virtual_network.jmeter_vnet.id
   image_registry_credential {
     server   = data.azurerm_container_registry.jmeter_acr.login_server
     username = data.azurerm_container_registry.jmeter_acr.admin_username
@@ -169,8 +164,8 @@ resource "azurerm_container_group" "jmeter_controller" {
   ip_address_type = "private"
   os_type         = "Linux"
 
-  network_profile_id = azurerm_network_profile.jmeter_net_profile.id
-
+  #network_profile_id = azurerm_network_profile.jmeter_net_profile.id
+  network_profile_id = data.azurerm_virtual_network.jmeter_vnet.id
   restart_policy = "Never"
 
   image_registry_credential {
