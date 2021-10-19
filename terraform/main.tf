@@ -88,19 +88,19 @@ resource "random_id" "random" {
  # }
 #}
 
-#resource "azurerm_storage_account" "jmeter_storage" {
-#  name                = "${var.PREFIX}storage${random_id.random.hex}"
-#  resource_group_name = "jmeter"
-#  location            = "westeurope"
+resource "azurerm_storage_account" "jmeter_storage" {
+  name                = "${var.PREFIX}storage${random_id.random.hex}"
+  resource_group_name = "jmeter"
+  location            = "westeurope"
 
-#  account_tier             = "Standard"
- # account_replication_type = "LRS"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 
- # network_rules {
- #   default_action             = "Allow"
- #   virtual_network_subnet_ids = ["${data.azurerm_subnet.jmeter_subnet.id}"]
-#  }
-#}
+  network_rules {
+    default_action             = "Allow"
+    virtual_network_subnet_ids = ["${data.azurerm_subnet.jmeter_subnet.id}"]
+  }
+}
 
 resource "azurerm_storage_share" "jmeter_share" {
   name                 = "jmeter"
