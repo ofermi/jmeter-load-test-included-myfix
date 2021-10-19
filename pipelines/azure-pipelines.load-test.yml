@@ -119,15 +119,8 @@ steps:
      echo "OFER"
 
      echo " before az container logs"
-     echo $(terraform output jmeter_controller_name)
-     echo $(terraform output jmeter_controller_name) | awk  -F '\"' '{print $2}'
 
-     export mycontr=$((terraform output jmeter_controller_name) | grep 'controller'  | awk -F '\"' '{print $2}')
-     echo "mycontr=$mycontr"
-
-
-     new_jmeter_controller_name=`echo $my_jmeter_controller_name` | `awk -F "\"" '{print $2}'`
-     echo "after new_jmeter_controller_name set" 
+     new_jmeter_controller_name=$((terraform output jmeter_controller_name) | grep 'controller'  | awk -F '\"' '{print $2}')
      echo "new_jmeter_controller_name=$new_jmeter_controller_name"
      
      echo $(terraform output resource_group_name)
