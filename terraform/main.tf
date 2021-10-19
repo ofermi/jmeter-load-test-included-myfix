@@ -15,6 +15,11 @@ data "azurerm_virtual_network" "jmeter_vnet" {
   resource_group_name = "jmeter"
 }
 
+
+resource "random_id" "random" {
+  byte_length = 4
+}
+
 #data   "azurerm_storage_account" "jmeter_storage" {
  # resource_group_name  = "jmeter"                 
 #  name = "jmeterstoraged9541e99"
@@ -63,10 +68,6 @@ data "azurerm_virtual_network" "jmeter_vnet" {
 
  # service_endpoints = ["Microsoft.Storage"]
 #}
-
-
-
-
 
 #resource "azurerm_network_profile" "jmeter_net_profile" {
 #  name                = "${var.PREFIX}netprofile"
