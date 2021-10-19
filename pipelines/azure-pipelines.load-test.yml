@@ -123,7 +123,7 @@ steps:
      echo $(terraform output resource_group_name)
      echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
      echo "end before az container logs"
-     export  $(terraform output jmeter_controller_name)="newcontroller"
+       (terraform output jmeter_controller_name)="newcontroller"
      echo    $(terraform output jmeter_controller_name)
 
      
