@@ -15,7 +15,7 @@ data "azurerm_virtual_network" "jmeter_vnet" {
 data  "azurerm_subnet" "jmeter_subnet" {
  name                 = "${var.PREFIX}subnet"
  resource_group_name  = var.RESOURCE_GROUP_NAME
- virtual_network_name = "jmetervnet"
+ virtual_network_name = "${var.PREFIX}vnet"
 }
 
 resource "random_id" "random" {
