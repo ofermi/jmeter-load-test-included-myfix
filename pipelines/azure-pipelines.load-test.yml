@@ -120,6 +120,7 @@ steps:
 
      echo " before az container logs"
      echo $(terraform output jmeter_controller_name)
+     echo $(terraform output jmeter_controller_name1)
      echo $(terraform output resource_group_name)
      echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
      echo "end before az container logs"
