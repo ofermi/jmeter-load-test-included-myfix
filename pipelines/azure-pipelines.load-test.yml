@@ -133,7 +133,7 @@ steps:
      echo "test2=$test2"
 
 
-     new_jmeter_controller_name=echo $my_jmeter_controller_name | awk -F "\"" '{print $2}'
+     new_jmeter_controller_name=`echo $my_jmeter_controller_name` | `awk -F "\"" '{print $2}'`
      echo "after new_jmeter_controller_name set" 
      echo "new_jmeter_controller_name=$new_jmeter_controller_name"
      
