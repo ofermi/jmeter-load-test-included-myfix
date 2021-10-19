@@ -19,7 +19,7 @@ data   "azurerm_storage_account" "jmeter_storage" {
 
 data "azurerm_network_profile" "jmeter_net_profile" {
   name                = "${var.PREFIX}netprofile"
-  location            = "westeurope"
+  location            = "eastus"
   resource_group_name = "jmeter"
  
 }
