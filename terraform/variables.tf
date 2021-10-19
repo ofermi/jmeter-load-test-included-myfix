@@ -11,7 +11,7 @@ variable "number_controller" {
 
 variable "LOCATION" {
   type    = string
-  default = "westeroupe"
+  default = "westeurope"
 }
 
 variable "PREFIX" {
