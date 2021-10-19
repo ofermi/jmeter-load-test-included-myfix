@@ -67,8 +67,8 @@ resource "random_id" "random" {
 
 resource "azurerm_network_profile" "jmeter_net_profile" {
   name                = "${var.PREFIX}netprofile"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
+  location            = data.azurerm_resource_group.jmeter_rg.location
+  resource_group_name = data.azurerm_resource_group.jmeter_rg.name
 
   container_network_interface {
     name = "${var.PREFIX}cnic"
@@ -82,8 +82,8 @@ resource "azurerm_network_profile" "jmeter_net_profile" {
 
 resource "azurerm_storage_account" "jmeter_storage" {
   name                = "${var.PREFIX}storage${random_id.random.hex}"
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
-  location            = azurerm_resource_group.jmeter_rg.location
+  resource_group_name = data.azurerm_resource_group.jmeter_rg.name
+  location            = data.azurerm_resource_group.jmeter_rg.location
 
   account_tier             = "Standard"
   account_replication_type = "LRS"
@@ -103,8 +103,8 @@ resource "azurerm_storage_share" "jmeter_share" {
 resource "azurerm_container_group" "jmeter_workers" {
   count               = var.JMETER_WORKERS_COUNT
   name                = "${var.PREFIX}-worker_new${count.index}"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
+  location            = data.azurerm_resource_group.jmeter_rg.location
+  resource_group_name = data.azurerm_resource_group.jmeter_rg.name
 
   ip_address_type = "private"
   os_type         = "Linux"
@@ -155,8 +155,8 @@ resource "azurerm_container_group" "jmeter_controller" {
   #count = 0
   count = "${var.number_controller}"
   name                = "${var.PREFIX}-controller_new"
-  location            = azurerm_resource_group.jmeter_rg.location
-  resource_group_name = azurerm_resource_group.jmeter_rg.name
+  location            = data.azurerm_resource_group.jmeter_rg.location
+  resource_group_name = data.azurerm_resource_group.jmeter_rg.name
 
   ip_address_type = "private"
   os_type         = "Linux"
