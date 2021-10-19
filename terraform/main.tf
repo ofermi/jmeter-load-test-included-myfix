@@ -7,16 +7,15 @@ data  "azurerm_resource_group" "jmeter_rg" {
   name     = var.RESOURCE_GROUP_NAME
  }
 
+data "azurerm_virtual_network" "jmeter_vnet" {
+ name                = "${var.PREFIX}vnet"
+   resource_group_name = var.RESOURCE_GROUP_NAME
+}
+
 data  "azurerm_subnet" "jmeter_subnet" {
  name                 = "${var.PREFIX}subnet"
  resource_group_name  = var.RESOURCE_GROUP_NAME
  virtual_network_name = "jmetervnet"
-}
-
-data "azurerm_virtual_network" "jmeter_vnet" {
- name                = "${var.PREFIX}vnet"
- location            = var.LOCATION
-  resource_group_name = var.RESOURCE_GROUP_NAME
 }
 
 resource "random_id" "random" {
