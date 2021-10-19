@@ -122,19 +122,7 @@ steps:
      echo $(terraform output jmeter_controller_name)
      echo $(terraform output jmeter_controller_name) | awk  -F '\"' '{print $2}'
 
-     test=`echo $(terraform output jmeter_controller_name)` | awk  '{print $0}' 
-     echo "test=$test"
-     my_jmeter_controller_name= echo $(terraform output jmeter_controller_name)
-     echo "my_jmeter_controller_name=$my_jmeter_controller_name"
-     
-     test1=`echo $(terraform output jmeter_controller_name)`  
-     echo "test1=$test1"
-     echo $test1 | awk -F '\"'  '{print $0","$1","$2}' 
-     
-     export mycontr=$(test1 | grep 'controller'  | awk '{print $0","$2","$1}')
-     echo "mycontr=$mycontr"
-
-     export mycontr=$((terraform output jmeter_controller_name) | grep 'controller'  | awk '{print $0","$2","$1}')
+     export mycontr=$((terraform output jmeter_controller_name) | grep 'controller'  | awk -F '\"' '{print $2}')
      echo "mycontr=$mycontr"
 
 
