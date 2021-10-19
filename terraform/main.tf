@@ -5,8 +5,7 @@ data "azurerm_container_registry" "jmeter_acr" {
 
 data  "azurerm_resource_group" "jmeter_rg" {
   name     = var.RESOURCE_GROUP_NAME
-  location =  var.LOCATION
-}
+ }
 
 data  "azurerm_subnet" "jmeter_subnet" {
  name                 = "${var.PREFIX}subnet"
