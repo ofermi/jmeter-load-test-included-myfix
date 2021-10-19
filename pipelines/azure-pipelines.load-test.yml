@@ -123,7 +123,7 @@ steps:
      echo $(terraform output jmeter_controller_name) | awk ` -F '"' '{print $2}'`
      my_jmeter_controller_name= echo $(terraform output jmeter_controller_name)
      echo $my_jmeter_controller_name 
-     new_jmeter_controller_name= `echo $my_jmeter_controller_name  |awk -F "\"" '{print $2}'`
+     new_jmeter_controller_name=`echo $my_jmeter_controller_name  |awk -F "\"" '{print $2}'`
      echo "after new_jmeter_controller_name set" 
      echo $new_jmeter_controller_name
      
