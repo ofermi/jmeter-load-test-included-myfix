@@ -11,7 +11,7 @@ variable "number_controller" {
 
 variable "LOCATION" {
   type    = string
-  default = "eastus"
+  default = "westeroupe"
 }
 
 variable "PREFIX" {
@@ -21,12 +21,12 @@ variable "PREFIX" {
 
 variable "VNET_ADDRESS_SPACE" {
   type    = string
-  default = "10.0.0.0/16"
+  default = "20.0.0.0/16"
 }
 
 variable "SUBNET_ADDRESS_PREFIX" {
   type    = string
-  default = "10.0.0.0/24"
+  default = "20.0.0.0/24"
 }
 
 variable "JMETER_WORKERS_COUNT" {
