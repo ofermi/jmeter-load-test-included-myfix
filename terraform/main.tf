@@ -8,7 +8,7 @@ data "azurerm_container_registry" "jmeter_acr" {
 # }
 
 resource "random_id" "random" {
-  byte_length = 4
+  byte_length = 3
 }
 
 resource "azurerm_resource_group" "jmeter_rg" {
