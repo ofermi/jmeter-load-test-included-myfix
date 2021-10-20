@@ -41,8 +41,8 @@ steps:
      Worker_name="jmete99-worker1"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
-     log=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1`
-     
+     log=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 | awk '{print $1 "   "$2"   "$3}'`
+     echo "log=$log"
      echo "befor log parsing"
      echo $log |awk '{print $3}'
      echo "before 1"
