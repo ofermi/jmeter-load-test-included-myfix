@@ -37,12 +37,14 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
      Worker_name="jmete99-worker1"
+     echo  "##vso[task.setvariable variable=Worker_name]$Worker_name"
+     
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
      connection_exist=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'| awk '{print $3}'`
      echo "connection_exist=$connection_exist"
      
-      echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"
+     echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"
 
       echo $(connection_exist)
 
@@ -62,7 +64,7 @@ steps:
       $Worker="Jmeter"
          if ("$(connection_exist)" -eq $Worker)
       {
-          echo "Jmeter RUN on container instance  $Worker_name"
+          echo "Jmeter RUN on container instance $(Worker_name)"
       }
        else
       {
