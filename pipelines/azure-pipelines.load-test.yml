@@ -43,25 +43,6 @@ steps:
      az container logs --resource-group $RG --name $Worker_name
      log=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 | awk '{print $3}'`
      echo "log=$log"
-     echo "befor log parsing"
-     echo $log |awk '{print $3}'
-     echo "before 1"
-     #awk -v  var="$log" '{print $3}'
-     echo "before awkvar" 
-      awk -v awkvar="$log" '{ print awkvar; }'
-      echo "before2"
-      awk -v  var=$log '{print $3}'
-      check= `awk -v  var="$log" '{print $3}'``
-      echo "check="+$check
-         
-      connection_exist=$(echo $(log) | awk   '{print $3}')
-      echo "connection_exist"+$connection_exist
-      
-      
-      connection_exist11=`$log |awk '{print $3}')`
-      echo "connection_exist11"+$connection_exist11
- 
-
 
      # If ($(connection_exist) ="Jmeter") than
      #   echo "Jmeter RUN on container instance  $Worker_name"
