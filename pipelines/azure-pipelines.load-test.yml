@@ -58,8 +58,7 @@ steps:
     targetType: 'inline'
     script: |
       echo "connection_exist=$(connection_exist)" 
-       # $local_connection_exist="$(connection_exist)"
-       #echo "local_connection_exist=$(local_connection_exist)" 
+
       $Worker="Jmeter"
          if ("$(connection_exist)" -eq $Worker)
       {
