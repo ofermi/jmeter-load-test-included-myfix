@@ -64,7 +64,7 @@ steps:
      
       
       #   if (echo $(connection_exist))
-          if($local_connection_exist)
+          if("$local_connection_exist")
       {
           echo "have to cancel $Worker_name"
       }
