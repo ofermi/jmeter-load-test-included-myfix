@@ -46,20 +46,16 @@ steps:
      echo "befor log parsing"
      echo $log |awk '{print $3}'
       
-     check= echo $(log |awk '{print $3}')
+     check= $log |awk '{print $3}'
      echo "check="+$check
      
-      connection_exist=echo $log |awk '{print $3}'
+      connection_exist=($log |awk '{print $3}')
       echo "connection_exist"+$connection_exist
-     
-
-     connection_exist111=$(log |awk '{print $3}')
-      echo "connection_exist111"+$connection_exist111
-     
-
-      new_jmeter_controller_name=$(log | grep 'Jmeter'  | awk   '{print $3}') 
-            echo "new_jmeter_controller_name"+$new_jmeter_controller_name
-
+      
+      
+      connection_exist11=`$log |awk '{print $3}')`
+      echo "connection_exist11"+$connection_exist11
+ 
 
 
      # If ($(connection_exist) ="Jmeter") than
