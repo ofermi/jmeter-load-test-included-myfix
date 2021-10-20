@@ -57,7 +57,7 @@ steps:
     failOnStandardError: true
     targetType: 'inline'
     script: |
-      echo "connection_exist=$((connection_exist))" 
+      echo "connection_exist=$(connection_exist)" 
       $local_connection_exist=$(connection_exist)
       echo "connection_exist=$(connection_exist)" 
       echo "local_connection_exist=$(local_connection_exist)" 
