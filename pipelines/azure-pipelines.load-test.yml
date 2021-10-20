@@ -29,7 +29,8 @@ steps:
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
       
 
-- task: AzureCLI@2
+#- task: AzureCLI@2
+- task: Bash@3
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
     workingDirectory: ./terraform
