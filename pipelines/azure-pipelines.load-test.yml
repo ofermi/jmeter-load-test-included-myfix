@@ -46,9 +46,7 @@ steps:
      
      connection_exist11=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'`
      echo "connection_exist11=$connection_exist11"
-     
-     
-     
+    
      value_jmeter="Jmeter"
      
      if[$connection_exist == $value_jmeter] 
