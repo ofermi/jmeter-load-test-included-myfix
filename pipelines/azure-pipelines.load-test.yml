@@ -36,7 +36,7 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-     Worker_name="jmete99-worker1"
+     Worker_name="jmete99-worker4"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
      connection_exist=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'| awk '{print $3}'`
