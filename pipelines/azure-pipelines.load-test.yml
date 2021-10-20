@@ -37,15 +37,24 @@ steps:
 #    scriptLocation: inlineScript
 #    inlineScript: |
 
-- script: |
-    
- 
 
-     echo "OFER"
-
+- task: AzureCLI@2
+  displayName: 'SETUP: Validate JMeter Docker Image'
+  inputs:
+    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript:  
      Worker_name="jmete99-worker4"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
+
+- script: |
+     echo "OFER"
+
+    #  Worker_name="jmete99-worker4"
+     # RG="jmete99"
+     # az container logs --resource-group $RG --name $Worker_name
      connection_exist=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'| awk '{print $3}'`
      echo "connection_exist=$connection_exist"
      
