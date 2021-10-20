@@ -60,9 +60,8 @@ steps:
       echo "connection_exist=$(connection_exist)" 
        # $local_connection_exist="$(connection_exist)"
        #echo "local_connection_exist=$(local_connection_exist)" 
-     
-      
-         if ("$(connection_exist)")
+
+         if ("$(connection_exist)" = "Jmeter")
       {
           echo "have to cancel $Worker_name"
       }
