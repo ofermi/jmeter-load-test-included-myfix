@@ -60,14 +60,14 @@ steps:
       echo "connection_exist=$(connection_exist)" 
        # $local_connection_exist="$(connection_exist)"
        #echo "local_connection_exist=$(local_connection_exist)" 
-
-         if ("$(connection_exist)" -eq "Jmeter")
+      $Worker="Jmeter"
+         if ("$(connection_exist)" -eq $Worker)
       {
-          echo "have to cancel $Worker_name"
+          echo "Jmeter RUN on container instance  $Worker_name"
       }
        else
       {
-        echo "Jmeter RUN on container instance  $Worker_name"
+        echo "have to cancel $Worker_name"
       }
       
      
