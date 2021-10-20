@@ -60,8 +60,9 @@ steps:
      $value_jmeter="Jmeter"
      echo "value_jmeter=$value_jmeter"
      echo "connection_exist= $(connection_exist)" 
-     ! if (echo $(connection_exist) = $value_jmeter)
+    # if (echo $(connection_exist) = $value_jmeter)
       if (!echo $(connection_exist))
+    #  if (echo $(connection_exist) -eq '')
       {
           echo "have to cancel $Worker_name"
       }
