@@ -41,10 +41,10 @@ steps:
      Worker_name="jmete99-worker4"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
-     connection_exist=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 |grep 'Jmeter'| awk '{print $3}'`
+     connection_exist=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'| awk '{print $3}'`
      echo "connection_exist=$connection_exist"
      
-     connection_exist11=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 |grep 'Jmeter'`
+     connection_exist11=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'`
      echo "connection_exist11=$connection_exist11"
      
      
