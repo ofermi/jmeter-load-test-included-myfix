@@ -59,6 +59,7 @@ steps:
     targetType: 'inline'
     script: |
      $value_jmeter="Jmeter"
+     echo "value_jmeter="+$value_jmeter
       echo "OFER calculate"
       echo "befor connection_exist"
       echo $connection_exist 
