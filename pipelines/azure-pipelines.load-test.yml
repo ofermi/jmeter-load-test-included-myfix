@@ -51,7 +51,7 @@ steps:
 
 
 
-steps:
+
 - task: PowerShell@02
   name: taskname
   displayName: calculate 
