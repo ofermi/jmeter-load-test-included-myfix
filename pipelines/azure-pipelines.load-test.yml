@@ -58,7 +58,7 @@ steps:
     targetType: 'inline'
     script: |
      $value_jmeter="Jmeter"
-     echo "value_jmeter= $value_jmeter"
+     echo "value_jmeter=$value_jmeter"
      echo "connection_exist= $(connection_exist)" 
       if ($(connection_exist) = $value_jmeter)
       {
