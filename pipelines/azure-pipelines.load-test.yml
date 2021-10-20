@@ -61,7 +61,7 @@ steps:
      $value_jmeter="Jmeter"
       echo "OFER calculate"
      echo "connection_exist"+$connection_exist 
-      if [$connection_exist = $value_jmeter]
+      if ($connection_exist = $value_jmeter)
       {
       echo "Jmeter RUN on container instance  $Worker_name"
       }
