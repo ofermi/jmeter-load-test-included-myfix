@@ -60,6 +60,7 @@ steps:
     script: |
      $value_jmeter="Jmeter"
       echo "OFER calculate"
+      echo $connection_exist 
      echo "connection_exist"+$connection_exist 
       if ($connection_exist = $value_jmeter)
       {
