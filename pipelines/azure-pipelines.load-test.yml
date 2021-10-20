@@ -46,12 +46,9 @@ steps:
 
      if($connection_exist -eq "Jmeter") 
       then
-       {
-        echo "Jmeter RUN on container instance  $Worker_name"
-        }
-      elif{
+         echo "Jmeter RUN on container instance  $Worker_name"
+      else
         echo "have to cancel $Worker_name"
-        }
       fi
 
   displayName: 'RESULTS:  Logs check '
