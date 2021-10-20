@@ -38,13 +38,14 @@ steps:
     inlineScript: |
      echo "OFER"
 
-     Worker_name="jmete99-worker1"
+     Worker_name="jmete99-worker4"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
      connection_exist=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 |grep 'Jmeter'| awk '{print $3}'`
      echo "connection_exist=$connection_exist"
      value_jmeter="Jmeter"
-     if [$connection_exist == $value_jmeter] 
+     
+     if[$connection_exist == $value_jmeter] 
       then
          echo "Jmeter RUN on container instance  $Worker_name"
       else
