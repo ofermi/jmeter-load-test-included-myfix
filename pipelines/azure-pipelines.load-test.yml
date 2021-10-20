@@ -49,9 +49,6 @@ steps:
 
   displayName: 'RESULTS:  First Logs check '
 
-
-
-
 - task: PowerShell@02
   name: taskname
   displayName: calculate 
@@ -75,8 +72,7 @@ steps:
       
      
    
-  workingDirectory: ./terraform
-  displayName: 'RESULTS:  Logs check '
+
 
  
 
