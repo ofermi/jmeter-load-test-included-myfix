@@ -44,9 +44,6 @@ steps:
      
       echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"
 
-     connection_exist11=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'`
-     echo "connection_exist11=$connection_exist11"
-
   displayName: 'RESULTS:  First Logs check '
 
 - task: PowerShell@02
