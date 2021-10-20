@@ -60,8 +60,9 @@ steps:
     script: |
      $value_jmeter="Jmeter"
       echo "OFER calculate"
-
+      echo "befor connection_exist"
       echo $connection_exist 
+      echo "after connection exixt" 
      echo "connection_exist"+$connection_exist 
       if ($connection_exist = $value_jmeter)
       {
