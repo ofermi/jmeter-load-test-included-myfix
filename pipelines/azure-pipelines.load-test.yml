@@ -14,20 +14,6 @@ variables:
 
 steps:
 
-- task: Bash@3
-  displayName: 'Change version of Az CLI'
-  inputs:
-    targetType: inline
-    script: |
-     sudo apt-get update
-     sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
-      curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
-      AZ_REPO=$(lsb_release -cs)
-      echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
-      sudo apt-get update
-      sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
-      
-
 - task: AzureCLI@2
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
@@ -36,18 +22,12 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
      echo "OFER"
+     az container logs --resource-group jmeter1 --name jmeter1-worker_new1
+     log=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1`
+      echo $log
 
-     new_jmeter_controller_name= echo "[ "jmeter1-controller_new", ]" |awk '{print $2}' |awk -F "," '{print $1}'
-     echo "after new_jmeter_controller_name set" 
-     echo $new_jmeter_controller_name
-      
-     echo "end before az container logs"
-     
-     az container logs -g "jmeter_new1" -n $new_jmeter_controller_name
-     # az container logs -g $(terraform output resource_group_name) -n $(terraform output jmeter_controller_name)
-      RESOURCE_GROUP="jmeter_new1"
-     #   echo -n $(terraform output jmeter_workers_names) | xargs -t -d "," -I '{}' -n1 az container logs -g $RESOURCE_GROUP -n {}
-  displayName: 'RESULTS: Collect JMeter Controller and Worker Logs'
+       
+  displayName: 'RESULTS:  Logs check '
 
  
 
