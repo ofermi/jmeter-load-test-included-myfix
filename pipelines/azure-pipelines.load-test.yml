@@ -61,7 +61,7 @@ steps:
        # $local_connection_exist="$(connection_exist)"
        #echo "local_connection_exist=$(local_connection_exist)" 
 
-         if ("$(connection_exist)" -eq "Jmeter1111")
+         if ("$(connection_exist)" -eq "Jmeter")
       {
           echo "have to cancel $Worker_name"
       }
