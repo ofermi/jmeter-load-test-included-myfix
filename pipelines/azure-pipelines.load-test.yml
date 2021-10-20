@@ -43,7 +43,7 @@ steps:
      az container logs --resource-group $RG --name $Worker_name
      log=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1`
      echo "befor log parsing"
-     echo ${log |grep Jmeter |awk '{print $3}'}"
+     echo ${log |grep Jmeter |awk '{print $3}'}
       
      check= echo $log |grep Jmeter |awk '{print $3}'
      echo "check="+$check
