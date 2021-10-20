@@ -59,12 +59,12 @@ steps:
     targetType: 'inline'
     script: |
      $value_jmeter="Jmeter"
-     echo "value_jmeter="+$value_jmeter
+     echo "value_jmeter= $value_jmeter"
       echo "OFER calculate"
       echo "befor connection_exist"
       echo $env:connection_exist 
       echo "after connection exixt" 
-     echo "connection_exist"+$connection_exist 
+     echo "connection_exist $connection_exist" 
       if ($connection_exist = $value_jmeter)
       {
       echo "Jmeter RUN on container instance  $Worker_name"
