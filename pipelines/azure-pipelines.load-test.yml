@@ -62,11 +62,11 @@ steps:
      echo "connection_exist $(connection_exist)" 
       if ($connection_exist = $value_jmeter)
       {
-      echo "Jmeter RUN on container instance  $Worker_name"
+        echo "Jmeter RUN on container instance  $Worker_name"
       }
-      if ($h -eq 21)
+       else
       {
-      echo "have to cancel $Worker_name"
+        echo "have to cancel $Worker_name"
       }
       
      
