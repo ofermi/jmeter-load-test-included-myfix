@@ -45,8 +45,8 @@ steps:
      
      echo "befor log parsing"
      echo $log |awk '{print $3}'
-    echo awk -v  var=$log '{print $3}' 
-    
+     echo awk -v  var=$log '{print $3}' 
+
      check= `awk -v var=$log '{print $3}'`
      echo "check="+$check
      
