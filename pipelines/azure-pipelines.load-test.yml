@@ -29,8 +29,7 @@ steps:
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
       
 
-#- task: AzureCLI@2
-- task: Bash@3
+- task: AzureCLI@2
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
     workingDirectory: ./terraform
@@ -44,6 +43,7 @@ steps:
      echo "connection_exist=$connection_exist"
      
       echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"
+
 
   displayName: 'RESULTS:  First Logs check '
 
@@ -61,6 +61,7 @@ steps:
       echo "OFER calculate"
       echo "befor connection_exist"
       echo $env:connection_exist 
+      echo $(connection_exist)
       echo $var:connection_exist 
       echo "after connection exixt" 
      echo "connection_exist $connection_exist" 
