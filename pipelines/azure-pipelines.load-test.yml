@@ -50,10 +50,10 @@ steps:
 
       echo "before2"
       awk -v  var=$log '{print $3}'
-      check= `awk '{print $3}' $log`
+      check= echo $log | `awk '{print $3}' `
       echo "check="+$check
          
-      connection_exist=$(echo "$(log)" | awk   '{print $3}')
+      connection_exist=$(echo $(log) | awk   '{print $3}')
       echo "connection_exist"+$connection_exist
       
       
