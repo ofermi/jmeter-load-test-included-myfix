@@ -68,7 +68,7 @@ steps:
       }
        else
       {
-        echo "have to cancel $Worker_name"
+        echo "have to cancel $(Worker_name)"
       }
       
      
