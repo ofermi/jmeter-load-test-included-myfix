@@ -43,6 +43,12 @@ steps:
      az container logs --resource-group $RG --name $Worker_name
      connection_exist=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 |grep 'Jmeter'| awk '{print $3}'`
      echo "connection_exist=$connection_exist"
+     
+     connection_exist11=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1 |grep 'Jmeter'`
+     echo "connection_exist11=$connection_exist11"
+     
+     
+     
      value_jmeter="Jmeter"
      
      if[$connection_exist == $value_jmeter] 
