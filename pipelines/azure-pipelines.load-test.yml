@@ -46,11 +46,12 @@ steps:
      echo "befor log parsing"
      echo $log |awk '{print $3}'
      echo "before 1"
-     echo $(`awk -v  var=$log '{print $3}'`) 
-
+     awk -v  var="$log" '{print $3}'
+     echo "before awkvar" 
+     awk -v awkvar="$myvar" '{ print awkvar; }'
       echo "before2"
       awk -v  var=$log '{print $3}'
-      check= echo $log | `awk '{print $3}' `
+      check= `awk -v  var="$log" '{print $3}'``
       echo "check="+$check
          
       connection_exist=$(echo $(log) | awk   '{print $3}')
