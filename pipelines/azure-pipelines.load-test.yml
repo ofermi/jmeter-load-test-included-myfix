@@ -57,8 +57,7 @@ steps:
     failOnStandardError: true
     targetType: 'inline'
     script: |
-     $value_jmeter="Jmeter"
-     echo "value_jmeter=$value_jmeter"
+
      echo "connection_exist= $(connection_exist)" 
     
       if (!echo $(connection_exist))
