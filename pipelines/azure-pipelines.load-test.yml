@@ -43,14 +43,14 @@ steps:
      az container logs --resource-group $RG --name $Worker_name
      log=`az container logs --resource-group jmeter1 --name jmeter1-worker_new1`
       echo $log
-     echo $log |grep Jmeter |awk '{print $1"   " $2"    " $3}'
-     # connection_exist=$(log |grep Jmeter |awk '{print $3}')
+     echo "job run"$log |grep Jmeter |awk '{print $3}'
+      connection_exist=$(log |grep Jmeter |awk '{print $3}')
 
-     # If ($(connection_exist) ="Jmeter") than
-     #   echo "Jmeter RUN on container instance  $Worker_name"
-     # else
-     #   echo "have to cancel $Worker_name"
-     #fi
+      If ($(connection_exist) ="Jmeter") than
+        echo "Jmeter RUN on container instance  $Worker_name"
+      else
+        echo "have to cancel $Worker_name"
+     fi
 
   displayName: 'RESULTS:  Logs check '
 
