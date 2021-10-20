@@ -55,6 +55,12 @@ steps:
      connection_exist111=$(log |grep Jmeter |awk '{print $3}')
       echo "connection_exist111"+$connection_exist111
      
+
+      new_jmeter_controller_name=$(log | grep 'Jmeter'  | awk   '{print $3}') 
+            echo "new_jmeter_controller_name"+$new_jmeter_controller_name
+
+
+
      # If ($(connection_exist) ="Jmeter") than
      #   echo "Jmeter RUN on container instance  $Worker_name"
      # else
