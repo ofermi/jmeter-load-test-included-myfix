@@ -29,13 +29,18 @@ steps:
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
       
 
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
-    workingDirectory: ./terraform
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
+#- task: AzureCLI@2
+#  inputs:
+#    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
+#    workingDirectory: ./terraform
+#    scriptType: bash
+#    scriptLocation: inlineScript
+#    inlineScript: |
+
+- script: |
+    
+ 
+
      echo "OFER"
 
      Worker_name="jmete99-worker4"
@@ -55,7 +60,7 @@ steps:
       else
         echo "have to cancel $Worker_name"
       fi
-
+  workingDirectory: ./terraform
   displayName: 'RESULTS:  Logs check '
 
  
