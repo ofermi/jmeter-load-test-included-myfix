@@ -39,27 +39,42 @@ steps:
      Worker_name="jmete99-worker4"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
-  displayName: 'RESULTS:  First Logs check '
-
-- script: |
-     echo "OFER"
-     
-     # RG="jmete99"
-     #  Worker_name="jmete99-worker4"
-     # az container logs --resource-group $RG --name $Worker_name
      connection_exist=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'| awk '{print $3}'`
      echo "connection_exist=$connection_exist"
      
+      echo "##vso[task.setvariable variable=connection_exist]$connection_exist"
+
      connection_exist11=`az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'`
      echo "connection_exist11=$connection_exist11"
-    
-     value_jmeter="Jmeter"
+
+  displayName: 'RESULTS:  First Logs check '
+
+
+
+steps:
+- task: PowerShell@02
+  name: taskname
+  displayName: calculate 
+  inputs:
+    azureSubscription: $(subnamee)
+    scriptLocation: 'inlineScript'
+    failOnStandardError: true
+    targetType: 'inline'
+    script: |
+     $value_jmeter="Jmeter"
+      echo "OFER calculate"
+     echo "connection_exist"+$connection_exist 
+      if ($connection_exist == $value_jmeter)
+      {
+      echo "Jmeter RUN on container instance  $Worker_name"
+      }
+      if ($h -eq 21)
+      {
+      echo "have to cancel $Worker_name"
+      }
+      
      
-     if[$(az container logs --resource-group $RG --name $Worker_name |grep 'Jmeter'| awk '{print $3}') = true ];then
-         echo "Jmeter RUN on container instance  $Worker_name"
-      else
-        echo "have to cancel $Worker_name"
-      fi
+   
   workingDirectory: ./terraform
   displayName: 'RESULTS:  Logs check '
 
