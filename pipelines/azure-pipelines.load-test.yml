@@ -60,7 +60,7 @@ steps:
       echo "connection_exist=$(connection_exist)" 
       $local_connection_exist=$(connection_exist)
       echo "connection_exist=$(connection_exist)" 
-      echo "connection_exist=$(connection_exist)" 
+      echo "conlocal_connection_exist=$(local_connection_exist)" 
      
       
       #   if (echo $(connection_exist))
