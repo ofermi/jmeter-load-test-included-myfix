@@ -29,25 +29,17 @@ steps:
       sudo apt-get install --allow-downgrades azure-cli=2.27.2-1~bionic
       
 
-#- task: AzureCLI@2
-#  inputs:
-#    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
-#    workingDirectory: ./terraform
-#    scriptType: bash
-#    scriptLocation: inlineScript
-#    inlineScript: |
-
-
 - task: AzureCLI@2
-  displayName: 'SETUP: Validate JMeter Docker Image'
   inputs:
     azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
+    workingDirectory: ./terraform
     scriptType: bash
     scriptLocation: inlineScript
-    inlineScript:  
+    inlineScript: |
      Worker_name="jmete99-worker4"
      RG="jmete99"
      az container logs --resource-group $RG --name $Worker_name
+  displayName: 'RESULTS:  First Logs check '
 
 - script: |
      echo "OFER"
