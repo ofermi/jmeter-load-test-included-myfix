@@ -55,8 +55,6 @@ steps:
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
         Remove-Item env:\TID
-
-
     pwsh: true
 
 - task: PowerShell@02
@@ -78,20 +76,10 @@ steps:
       $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
 
       $RG="jmete99"
-      Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName "jmeter" -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+      $connection_detail='Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName "jmeter" -ResourceGroupName $RG -SubscriptionId $SubscriptionId'
+      echo "connection_detail=$connection_detail"
       
-      
-      echo "connection_exist=$(connection_exist)" 
-      $Worker="Jmeter"
-         if ("$(connection_exist)" -eq $Worker)
-      {
-          echo "Jmeter RUN on container instance $(Worker_name)"
-      }
-       else
-      {
-        echo "have to cancel $(Worker_name)"
-      }
-      
+    pwsh: true
      
    
 
