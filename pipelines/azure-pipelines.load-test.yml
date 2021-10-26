@@ -70,8 +70,8 @@ steps:
               }
             
             echo "cnt=$cnt"
-            
-             if ($cnt >1)
+
+             if ($cnt =1)
                {
               $IP_LIST=echo "$IP_LIST , $worker_ip"
               echo "in >1"
