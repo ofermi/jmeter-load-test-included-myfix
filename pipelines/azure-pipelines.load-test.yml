@@ -36,8 +36,6 @@ steps:
       #    Install-Module Az -Scope CurrentUser -Force -Verbose -RequiredVersion 5.3.0
          Install-Module -Name Az.ContainerInstance  -force
 
-
-
         $credential = New-Object System.Management.Automation.PSCredential ("${env:SPID}", (ConvertTo-SecureString ${env:SPKEY} -AsPlainText -Force))
         Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
 
@@ -50,7 +48,7 @@ steps:
        $Worker_name="jmete99-worker4" 
        $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
        $RG="jmete99"
-       $connection_detail=`Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName jmeter -ResourceGroupName $RG -SubscriptionId $SubscriptionId`
+       $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName jmeter -ResourceGroupName $RG -SubscriptionId $SubscriptionId
        echo "connection_detail=$connection_detail"
        echo "OFER"
 
