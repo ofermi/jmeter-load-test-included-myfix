@@ -1,26 +1,22 @@
-#trigger: none
+trigger: none
 
-#pool:
-#  vmImage: 'ubuntu-18.04'
+pool:
+  vmImage: 'ubuntu-18.04'
 
-#variables:
-#- group: JMETER_TERRAFORM_SETTINGS
-#- name: JMETER_DIRECTORY_INPUT
-#  value: $(System.DefaultWorkingDirectory)/jmeter
-#- name: JMETER_DIRECTORY_OUTPUT
-#  value: $(System.DefaultWorkingDirectory)/results
-#- name: TERRAFORM_VERSION
-#  value: 0.13.2
+variables:
+- group: JMETER_TERRAFORM_SETTINGS
+- name: JMETER_DIRECTORY_INPUT
+  value: $(System.DefaultWorkingDirectory)/jmeter
+- name: JMETER_DIRECTORY_OUTPUT
+  value: $(System.DefaultWorkingDirectory)/results
+- name: TERRAFORM_VERSION
+  value: 0.13.2
 
-  Parameters :
-        ip : []
+
 
 steps:
 
-  - ${{ each i in  $ip.Split(",") }}
-   
-
-  - task: Bash@3
+- task: Bash@3
   displayName: 'Change version of Az CLI'
   inputs:
     targetType: inline
@@ -66,8 +62,9 @@ steps:
       
      
       $RG="jmete99"
-      az container logs --resource-group $RG --name $Worker_name
-
+      Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $Worker_name -ResourceGroupName $RG
+      
+      
       echo "connection_exist=$(connection_exist)" 
       $Worker="Jmeter"
          if ("$(connection_exist)" -eq $Worker)
