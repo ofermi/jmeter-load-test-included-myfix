@@ -87,7 +87,7 @@ steps:
     addSpnToEnvironment: true
 
 - task: PowerShell@2
-  displayName: "Get Worker's log "
+  displayName: "check Workers connectivitiy "
   inputs:
     workingDirectory: ./terraform
     targetType: "inline"
