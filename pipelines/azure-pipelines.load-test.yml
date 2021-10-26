@@ -70,10 +70,15 @@ steps:
               echo "$Worker_name was canceled"
               }
             
-            
-              $IP_LIST=$IP_LIST+","
-              $worker_ip
-              
+             if ($cnt >1)
+               {
+              $IP_LIST=$IP_LIST + \',\' $worker_ip
+                }
+              else 
+              {
+                $IP_LIST=$worker_ip
+              }
+              echo "$IP_LIST"
              $cnt++
          }
         Remove-Item env:\SPKEY
