@@ -49,12 +49,10 @@ steps:
               $RG="jmete99"
               $ContainerName="jmeter"
             
-            Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+            #Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
     
             $connection_Jmeter=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
-            #$connection_Jmeter=Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker0 -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
-
-            echo "connection_Jmeter=$connection_Jmeter"
+            $echo "connection_Jmeter=$connection_Jmeter"
         
             $Worker_instance_name="Jmeter"
              
