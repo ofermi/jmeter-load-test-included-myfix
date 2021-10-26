@@ -47,7 +47,7 @@ steps:
       
        Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
         echo "OFER1"
-       $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+       $connection_detail=`Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'`
        echo "connection_detail=$connection_detail"
        echo "OFER"
 
