@@ -55,7 +55,7 @@ steps:
             # $connection_Jmeter=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
             $connection_Jmeter=Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker0 -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
 
-            echo "connection_Jmeter=$connection_detail"
+            echo "connection_Jmeter=$connection_Jmeter"
         
             $Worker_instance_name="Jmeter"
              
@@ -63,7 +63,7 @@ steps:
               {
                 echo "Jmeter RUN on container instance $Worker_name"
                 $worker_ip= Get-AzContainerGroup -Name $Worker_name  -ResourceGroupName $RG | fl |grep IPAddressIP |awk '{print $3}'
-                echo $worker_ip
+                echo "The $Worker_name ip=$worker_ip"
               }
               else
               {
