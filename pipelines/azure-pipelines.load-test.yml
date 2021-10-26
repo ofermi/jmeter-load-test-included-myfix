@@ -48,7 +48,7 @@ steps:
        $Worker_name="jmete99-worker4" 
        $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
        $RG="jmete99"
-       ContainerName="jmeter"
+       $ContainerName="jmeter"
        
        $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
        echo "connection_detail=$connection_detail"
