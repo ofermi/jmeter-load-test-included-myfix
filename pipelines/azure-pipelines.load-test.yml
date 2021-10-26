@@ -26,7 +26,7 @@ steps:
     targetType: 'inline'
     script: |
 
-     Install-Module -Name Az.ContainerInstance  
+     Install-Module -Name Az.ContainerInstance  -force
 
       $Worker_name="jmete99-worker4"
       
