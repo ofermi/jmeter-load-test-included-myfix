@@ -80,7 +80,9 @@ steps:
                 echo "in 1"
               }
               echo "IP_LIST=$IP_LIST"
+             
              $cnt++
+             echo "cnt=$cnt"
          }
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
