@@ -20,7 +20,8 @@ steps:
   name: taskname
   displayName: check connection 
   inputs:
-    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
+  #  azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
+    serviceConnectionName: $(AZURE_SERVICE_CONNECTION_NAME)
     scriptLocation: 'inlineScript'
     failOnStandardError: true
     targetType: 'inline'
