@@ -63,30 +63,30 @@ steps:
                 echo "Jmeter RUN on container instance $Worker_name"
                 $worker_ip= Get-AzContainerGroup -Name $Worker_name  -ResourceGroupName $RG | fl |grep IPAddressIP |awk '{print $3}'
                 echo "The $Worker_name ip=$worker_ip"
+              
+                  if ($cnt -eq 1)
+                  {
+                    $IP_LIST=$worker_ip
+                     echo "in 1"
+                  }
+                   else
+                  {
+                    $IP_LIST=echo "$IP_LIST , $worker_ip"
+                     echo "in >1"
+                    } 
+              
               }
               else
               {
               echo "$Worker_name was canceled"
               }
             
-            echo "cnt=$cnt"
-
-             if ($cnt -eq 1)
-             {
-                $IP_LIST=$worker_ip
-                echo "in 1"
-              }
-              else
-               {
-              $IP_LIST=echo "$IP_LIST , $worker_ip"
-              echo "in >1"
-                }
-              
+                      
               
               echo "IP_LIST=$IP_LIST"
              
              $cnt++
-             echo "cnt=$cnt"
+           
          }
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
