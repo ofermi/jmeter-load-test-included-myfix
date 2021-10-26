@@ -20,7 +20,7 @@ steps:
   - ${{ each i in  $ip.Split(",") }}
    
 
-- task: Bash@3
+  - task: Bash@3
   displayName: 'Change version of Az CLI'
   inputs:
     targetType: inline
