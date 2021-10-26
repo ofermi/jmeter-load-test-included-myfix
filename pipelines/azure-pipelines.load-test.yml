@@ -47,15 +47,7 @@ steps:
      echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"
 
       echo $(connection_exist)
-      $Worker="Jmeter"
-      if ("$(connection_exist)" -eq $Worker)
-      {
-          echo "Jmeter RUN on container instance $(Worker_name)"
-      }
-       else
-      {
-        echo "have to cancel $(Worker_name)"
-      }
+
       
 
 
@@ -63,7 +55,7 @@ steps:
 
 - task: PowerShell@02
   name: taskname
-  displayName: calculate 
+  displayName: check connection 
   inputs:
     azureSubscription: $(subnamee)
     scriptLocation: 'inlineScript'
