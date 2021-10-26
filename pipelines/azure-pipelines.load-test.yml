@@ -28,7 +28,7 @@ steps:
     addSpnToEnvironment: true
 
 - task: PowerShell@2
-  displayName: "Connect to Azure "
+  displayName: "bring cintainer's log "
   inputs:
     targetType: "inline"
     script: |
@@ -47,7 +47,7 @@ steps:
       
        Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
         echo "OFER1"
-       $connection_detail=`Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'`
+       $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
        echo "connection_detail=$connection_detail"
        echo "OFER"
 
@@ -57,22 +57,7 @@ steps:
         Remove-Item env:\TID
     pwsh: true
 
-- task: PowerShell@02
-  name: taskname
-  displayName: check connection 
-  inputs:
-  #  azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
-    serviceConnectionName: $(AZURE_SERVICE_CONNECTION_NAME)
-    scriptLocation: 'inlineScript'
-    failOnStandardError: true
-    targetType: 'inline'
-    script: |
-
-  
-  #   
-    pwsh: true
-     
-   
+- 
 
 
  
