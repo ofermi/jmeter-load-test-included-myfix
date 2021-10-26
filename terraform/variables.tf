@@ -12,7 +12,7 @@ variable "number_controller" {
 variable "New_ip_list" {
    type    = string
    default = ""
-}"
+}
 
 variable "LOCATION" {
   type    = string
