@@ -12,8 +12,8 @@
 #- name: TERRAFORM_VERSION
 #  value: 0.13.2
 
-Parameters :
-  ip : []
+  Parameters :
+      ip : []
 
 steps:
 
