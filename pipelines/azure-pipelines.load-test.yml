@@ -30,5 +30,5 @@ steps:
 
 - template: azure-pipeline.check_connection.yml
 parameters:
-   ip=$ip
+   ip=[$ip]
         
