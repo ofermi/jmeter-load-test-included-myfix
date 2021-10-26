@@ -19,7 +19,7 @@ steps:
       $ip="10.0.0.8,10.0.0.7,10.0.0.11,10.0.0.4,10.0.0.5,10.0.0.9,10.0.0.6"
       echo "ip=$(ip)" 
 
-      for (i in $(echo $variable | sed "s/,/ /g"))
+      for (i in $(echo $ip | sed "s/,/ /g"))
       {
          echo "$i"   
       }
