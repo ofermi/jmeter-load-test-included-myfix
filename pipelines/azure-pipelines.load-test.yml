@@ -16,7 +16,7 @@ steps:
     targetType: 'inline'
     script: |
 
-      ip="10.0.0.4,10.0.0.6,10.0.0.5"
+      ip="10.0.0.8,10.0.0.7,10.0.0.11,10.0.0.4,10.0.0.5,10.0.0.9,10.0.0.6"
       echo "ip=$(ip)" 
 
       for i in $(echo $variable | sed "s/,/ /g")
@@ -24,14 +24,3 @@ steps:
          echo "$i"   
       done    
 
-
-      $Worker="Jmeter"
-         if ("$(connection_exist)" -eq $Worker)
-      {
-          echo "Jmeter RUN on container instance $(Worker_name)"
-      }
-       else
-      {
-        echo "have to cancel $(Worker_name)"
-      }
-      
