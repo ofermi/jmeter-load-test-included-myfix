@@ -46,7 +46,7 @@ steps:
      
      echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"
 
-      echo "$(connection_exist)"
+     # echo "$(connection_exist)"
 
       
 
