@@ -67,13 +67,11 @@ steps:
                   if ($cnt -eq 1)
                   {
                     $IP_LIST=$worker_ip
-                     echo "in 1"
-                  }
+                   }
                    else
                   {
                     $IP_LIST=echo "$IP_LIST , $worker_ip"
-                     echo "in >1"
-                    } 
+                   } 
               
               }
               else
