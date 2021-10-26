@@ -26,7 +26,7 @@ steps:
              $cnt++
           }
 
-  - ${{ each i in  $ip.Split(",") }}
-    -script 
-
+- template: azure-pipeline.check_connection.yml
+parameters:
+   ip=$ip
         
