@@ -41,13 +41,12 @@ steps:
 
        list_workers="jmete99-worker0,jmete99-worker1,jmete99-worker2,jmete99-worker2",jmete99-worker4"
 
-
-        echo  "##vso[task.setvariable variable=ip]$ip"       
+            
         $cnt = 1
-        foreach ($Worker_name in $ip.Split(","))
+        foreach ($Worker_name in $list_workers.Split(","))
         {
          
-              $Worker_name="jmete99-worker0"
+        #      $Worker_name="jmete99-worker0"
               $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
               $RG="jmete99"
               $ContainerName="jmeter"
@@ -62,7 +61,7 @@ steps:
               if ("$(connection_Jmeter)" -eq $Worker)
               {
                 echo "Jmeter RUN on container instance $(Worker_name)"
-                $ip++= az container show --resource-group  $RG --name $Worker_name --query ipAddress.ip --output tsv
+                $ip= ip+ az container show --resource-group  $RG --name $Worker_name --query ipAddress.ip --output tsv
                 echo $ip
               }
               else
