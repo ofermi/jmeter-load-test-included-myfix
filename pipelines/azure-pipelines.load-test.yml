@@ -3,72 +3,35 @@ trigger: none
 pool:
   vmImage: 'ubuntu-18.04'
 
-variables:
-- group: JMETER_TERRAFORM_SETTINGS
-- name: JMETER_DIRECTORY_INPUT
-  value: $(System.DefaultWorkingDirectory)/jmeter
-- name: JMETER_DIRECTORY_OUTPUT
-  value: $(System.DefaultWorkingDirectory)/results
-- name: TERRAFORM_VERSION
-  value: 0.13.2
 
 steps:
 
-- task: AzureCLI@2
-  displayName: 'SETUP: Validate JMeter Docker Image'
+- task: PowerShell@02
+  name: taskname
+  displayName: check connection 
   inputs:
-    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az acr login -n $(TF_VAR_JMETER_ACR_NAME)
-      docker pull $(TF_VAR_JMETER_DOCKER_IMAGE)
+    azureSubscription: $(subnamee)
+    scriptLocation: 'inlineScript'
+    failOnStandardError: true
+    targetType: 'inline'
+    script: |
+
+      ip="10.0.0.4,10.0.0.6,10.0.0.5"
+      echo "ip=$(ip)" 
+
+      for i in $(echo $variable | sed "s/,/ /g")
+      do
+         echo "$i"   
+      done    
 
 
-- script: |
-    docker run --name=jmx-validator -v $(JMETER_DIRECTORY_INPUT):/jmeter -w /jmeter \
-      --entrypoint "TestPlanCheck.sh" $(TF_VAR_JMETER_DOCKER_IMAGE) \
-      --stats --tree-dump --jmx $(TF_VAR_JMETER_JMX_FILE)
-  displayName: 'SETUP: Validate JMX File'
-
-- task: AzureCLI@2
-  displayName: 'SETUP: Prepare Terraform Credentials'
-  inputs:
-    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
-    scriptType: bash
-    scriptLocation: inlineScript
-    addSpnToEnvironment: true
-    inlineScript: |
-      echo "##vso[task.setvariable variable=ARM_CLIENT_ID]$servicePrincipalId"
-      echo "##vso[task.setvariable variable=ARM_CLIENT_SECRET]$servicePrincipalKey"
-      echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
-      echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$AZURE_SUBSCRIPTION_ID"
-
-- script: |
-    wget https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
-    unzip terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
-    sudo mv ./terraform  /usr/local/bin
-  workingDirectory: $(Agent.TempDirectory)
-  displayName: 'SETUP: Install Terraform'
-
-- script: terraform init
-  workingDirectory: ./terraform
-  displayName: 'SETUP: Run Terraform Init'
-
-- script: terraform apply -target azurerm_storage_share.jmeter_share -auto-approve
-  workingDirectory: ./terraform
-  displayName: 'SETUP: Run Terraform Apply create storage (target=file share)'
-
-- script: |
-    SAS_END=`date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ'` && \
-    JMETER_SAS=`az storage share generate-sas -n jmeter --account-name $(terraform output storage_account_name) --account-key $(terraform output storage_account_key) --https-only --permissions dlrw --expiry $SAS_END -o tsv` && \
-    azcopy cp \
-    "$(JMETER_DIRECTORY_INPUT)/*.jmx" \
-    $(terraform output storage_file_share_url)?$JMETER_SAS \
-    --recursive
-  workingDirectory: ./terraform
-  displayName: 'SETUP: Transfer JMeter Files to Storage Account'
-
-- script: terraform apply -var="number_controller=0" -auto-approve
-  workingDirectory: ./terraform
-  displayName: 'SETUP: Run Terraform Apply create Workers (target=all)'
+      $Worker="Jmeter"
+         if ("$(connection_exist)" -eq $Worker)
+      {
+          echo "Jmeter RUN on container instance $(Worker_name)"
+      }
+       else
+      {
+        echo "have to cancel $(Worker_name)"
+      }
+      
