@@ -20,7 +20,7 @@ steps:
   name: taskname
   displayName: check connection 
   inputs:
-    azureSubscription: $(subnamee)
+    azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
     scriptLocation: 'inlineScript'
     failOnStandardError: true
     targetType: 'inline'
