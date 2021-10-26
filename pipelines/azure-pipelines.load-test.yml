@@ -28,7 +28,7 @@ steps:
     addSpnToEnvironment: true
 
 - task: PowerShell@2
-  displayName: "bring cintainer's log "
+  displayName: "bring Worker's log "
   inputs:
     targetType: "inline"
     script: |
@@ -39,19 +39,42 @@ steps:
         $credential = New-Object System.Management.Automation.PSCredential ("${env:SPID}", (ConvertTo-SecureString ${env:SPKEY} -AsPlainText -Force))
         Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
 
-
-      $Worker_name="jmete99-worker0"
-      $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
-      $RG="jmete99"
-      $ContainerName="jmeter"
-      
-       Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
-        echo "OFER1"
-       $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
-       echo "connection_detail=$connection_detail"
-       echo "OFER"
+       list_workers="jmete99-worker0,jmete99-worker1,jmete99-worker2,jmete99-worker2",jmete99-worker4"
 
 
+        echo  "##vso[task.setvariable variable=ip]$ip"       
+        $cnt = 1
+        foreach ($Worker_name in $ip.Split(","))
+        {
+         
+              $Worker_name="jmete99-worker0"
+              $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
+              $RG="jmete99"
+              $ContainerName="jmeter"
+            
+            Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+    
+            $connection_Jmeter=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
+            echo "connection_Jmeter=$connection_detail"
+        
+            $Worker="Jmeter"
+             
+              if ("$(connection_Jmeter)" -eq $Worker)
+              {
+                echo "Jmeter RUN on container instance $(Worker_name)"
+                $ip++= az container show --resource-group  $RG --name $Worker_name --query ipAddress.ip --output tsv
+                echo $ip
+              }
+              else
+              {
+              echo "$(Worker_name) was canceled"
+              }
+            
+            
+
+              
+             $cnt++
+         }
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
         Remove-Item env:\TID
