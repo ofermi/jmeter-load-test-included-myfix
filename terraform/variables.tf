@@ -9,6 +9,11 @@ variable "number_controller" {
     default = 1
 }
 
+variable "New_ip_list" {
+   type    = string
+   default = ""
+}"
+
 variable "LOCATION" {
   type    = string
   default = "westeurope"
