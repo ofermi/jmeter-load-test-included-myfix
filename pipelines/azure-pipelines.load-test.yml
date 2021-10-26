@@ -20,7 +20,8 @@ steps:
       echo "ip=$(ip)" 
 
       for (i in $(echo $variable | sed "s/,/ /g"))
-      do
+      {
          echo "$i"   
+      }
       done    
 
