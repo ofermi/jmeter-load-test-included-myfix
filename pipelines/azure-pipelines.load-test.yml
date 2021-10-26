@@ -52,9 +52,9 @@ steps:
       Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName "jmeter" -ResourceGroupName $RG -SubscriptionId $SubscriptionId
       
 
-        Remove-Item env:\SPKEY
-        Remove-Item env:\SPID
-        Remove-Item env:\TID
+     #   Remove-Item env:\SPKEY
+     #   Remove-Item env:\SPID
+     #   Remove-Item env:\TID
     pwsh: true
 
 - task: PowerShell@02
@@ -62,7 +62,7 @@ steps:
   displayName: check connection 
   inputs:
   #  azureSubscription: $(AZURE_SERVICE_CONNECTION_NAME)
-    serviceConnectionName: $(AZURE_SERVICE_CONNECTION_NAME)
+  #  serviceConnectionName: $(AZURE_SERVICE_CONNECTION_NAME)
     scriptLocation: 'inlineScript'
     failOnStandardError: true
     targetType: 'inline'
