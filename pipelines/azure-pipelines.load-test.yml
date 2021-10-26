@@ -71,7 +71,7 @@ steps:
             
             echo "cnt=$cnt"
 
-             if ("$cnt" -eq 1)
+             if ($cnt -eq 1)
              {
                 $IP_LIST=$worker_ip
                 echo "in 1"
