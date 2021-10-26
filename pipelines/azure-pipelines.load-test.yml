@@ -34,7 +34,7 @@ steps:
       $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
 
       $RG="jmete99"
-      Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName "jmeter" -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+      Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName "jmeter" -ResourceGroupName $RG 
       
       
       echo "connection_exist=$(connection_exist)" 
