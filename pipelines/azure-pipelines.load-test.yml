@@ -48,6 +48,17 @@ steps:
 
       echo $(connection_exist)
 
+      if ("$(connection_exist)" -eq $Worker)
+      {
+          echo "Jmeter RUN on container instance $(Worker_name)"
+      }
+       else
+      {
+        echo "have to cancel $(Worker_name)"
+      }
+      
+
+
   displayName: 'RESULTS:  First Logs check '
 
 - task: PowerShell@02
