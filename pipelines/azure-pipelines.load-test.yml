@@ -45,7 +45,6 @@ steps:
         foreach ($Worker_name in $list_workers.Split(","))
         {
          
-  "
               $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
               $RG="jmete99"
               $ContainerName="jmeter"
