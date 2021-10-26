@@ -20,7 +20,7 @@ steps:
        echo "ip=$ip" 
 
 
-        echo  "##vso[task.setvariable variable=connection_exist]$connection_exist"       
+        echo  "##vso[task.setvariable variable=ip]$ip"       
         $cnt = 1
         foreach ($i in $ip.Split(","))
         {
