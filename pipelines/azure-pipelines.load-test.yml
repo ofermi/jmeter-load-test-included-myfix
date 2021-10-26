@@ -147,13 +147,15 @@ steps:
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
         Remove-Item env:\TID
+
+        echo "##vso[task.setvariable variable=IP_LIST]$IP_LIST"
     pwsh: true
 
 
 
 
 
-- script: terraform apply -var="number_controller=1" -target azurerm_container_group.jmeter_controller -auto-approve
+- script: terraform apply -var="number_controller=1" -var="New_ip_list=$(IP_LIST)" -target azurerm_container_group.jmeter_controller -auto-approve
   workingDirectory: ./terraform
   displayName: 'SETUP: Run Terraform Apply create Controller (target=controller)'
 
