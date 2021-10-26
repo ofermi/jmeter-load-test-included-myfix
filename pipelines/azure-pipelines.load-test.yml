@@ -1,1 +1,53 @@
-wewew
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-18.04'
+
+variables:
+- group: JMETER_TERRAFORM_SETTINGS
+- name: JMETER_DIRECTORY_INPUT
+  value: $(System.DefaultWorkingDirectory)/jmeter
+- name: JMETER_DIRECTORY_OUTPUT
+  value: $(System.DefaultWorkingDirectory)/results
+- name: TERRAFORM_VERSION
+  value: 0.13.2
+
+
+
+steps:
+
+- task: PowerShell@02
+  name: taskname
+  displayName: check connection 
+  inputs:
+    azureSubscription: $(subnamee)
+    scriptLocation: 'inlineScript'
+    failOnStandardError: true
+    targetType: 'inline'
+    script: |
+
+     Install-Module -Name Az.ContainerInstance -Confirm
+      $Worker_name="jmete99-worker4"
+      
+     
+      $RG="jmete99"
+      Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $Worker_name -ResourceGroupName $RG
+      
+      
+      echo "connection_exist=$(connection_exist)" 
+      $Worker="Jmeter"
+         if ("$(connection_exist)" -eq $Worker)
+      {
+          echo "Jmeter RUN on container instance $(Worker_name)"
+      }
+       else
+      {
+        echo "have to cancel $(Worker_name)"
+      }
+      
+     
+   
+
+
+ 
+
