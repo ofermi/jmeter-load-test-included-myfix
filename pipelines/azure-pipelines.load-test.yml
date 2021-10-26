@@ -40,17 +40,14 @@ steps:
         Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
 
 
-      $Worker_name="jmete99-worker4"
+      $Worker_name="jmete99-worker0"
       $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
       $RG="jmete99"
-      Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker3 -ContainerName "jmeter" -ResourceGroupName $RG -SubscriptionId $SubscriptionId
-       
-       $Worker_name="jmete99-worker4" 
-       $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
-       $RG="jmete99"
-       $ContainerName="jmeter"
-       
-       $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+      $ContainerName="jmeter"
+      
+       Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
+        echo "OFER1"
+       $connection_detail=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
        echo "connection_detail=$connection_detail"
        echo "OFER"
 
