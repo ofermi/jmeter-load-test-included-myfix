@@ -59,7 +59,7 @@ steps:
               if ("$connection_Jmeter" -eq $Worker_instance_name)
               {
                 echo "Jmeter RUN on container instance $Worker_name"
-                $ip= ip+ az container show --resource-group  $RG --name $Worker_name --query ipAddress.ip --output tsv
+                $ip= az container show --resource-group  $RG --name $Worker_name --query ipAddress.ip --output tsv
                 echo $ip
               }
               else
