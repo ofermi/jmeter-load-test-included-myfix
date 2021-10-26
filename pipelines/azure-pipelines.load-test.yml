@@ -39,7 +39,7 @@ steps:
        Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
        
        $list_workers="jmete99-worker0,jmete99-worker1"
-       #,jmete99-worker1,jmete99-worker2,jmete99-worker2,jmete99-worker4"
+        #,jmete99-worker1,jmete99-worker2,jmete99-worker2,jmete99-worker4"
             
         $cnt = 1
         foreach ($Worker_name in $list_workers.Split(","))
