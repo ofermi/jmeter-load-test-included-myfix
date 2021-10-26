@@ -28,7 +28,7 @@ steps:
              $cnt++
           }
 
-- template: /pipelines/azure-pipeline.check_connection.yml
+- template: pipelines/azure-pipelines.check_connection.yml
   parameters:
         param : "$ip" 
         
