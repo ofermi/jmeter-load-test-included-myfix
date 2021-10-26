@@ -38,14 +38,14 @@ steps:
        $credential = New-Object System.Management.Automation.PSCredential ("${env:SPID}", (ConvertTo-SecureString ${env:SPKEY} -AsPlainText -Force))
        Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
        
-       $list_workers="jmete99-worker1"
+       $list_workers="jmete99-worker0,,jmete99-worker1"
        #,jmete99-worker1,jmete99-worker2,jmete99-worker2,jmete99-worker4"
             
         $cnt = 1
         foreach ($Worker_name in $list_workers.Split(","))
         {
          
-        #      $Worker_name="jmete99-worker0"
+  "
               $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
               $RG="jmete99"
               $ContainerName="jmeter"
