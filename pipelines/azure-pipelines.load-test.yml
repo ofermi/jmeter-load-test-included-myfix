@@ -27,11 +27,12 @@ steps:
     script: |
 
      Install-Module -Name Az.ContainerInstance -Confirm
+
       $Worker_name="jmete99-worker4"
       
      
       $RG="jmete99"
-      Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $Worker_name -ResourceGroupName $RG
+      Get-AzContainerInstanceLog -ContainerGroupName jmete99-worker4 -ContainerName "jmeter" -ResourceGroupName $RG
       
       
       echo "connection_exist=$(connection_exist)" 
