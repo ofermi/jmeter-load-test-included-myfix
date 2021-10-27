@@ -126,7 +126,6 @@ steps:
                   if ($IP_LIST -eq $first_worker)
                   {
                     $IP_LIST=$worker_ip
-
                     echo "first_worker=$first_worker"
                    }
                    else
