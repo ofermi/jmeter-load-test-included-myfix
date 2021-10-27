@@ -129,25 +129,22 @@ steps:
                   {
                     $IP_LIST=echo "$IP_LIST , $worker_ip"
                    } 
-              
+ 
               }
               else
               {
               echo "$Worker_name was canceled"
               }
-            
-                      
-              
               echo "IP_LIST=$IP_LIST"
-             
              $cnt++
-           
-         }
+        }
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
         Remove-Item env:\TID
 
-        echo "##vso[task.setvariable variable=IP_LIST]$IP_LIST"
+        $IP_LIST_No_SPACES=$(IP_LIST| awk '{ gsub(/ /,\"\"); print }')
+
+        echo "##vso[task.setvariable variable=IP_LIST]$IP_LIST_No_SPACES"
     pwsh: true
 
 
