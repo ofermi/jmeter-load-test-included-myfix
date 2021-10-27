@@ -94,7 +94,8 @@ steps:
      echo "jmeter_worker_ip_with_join=$(terraform output jmeter_workers_ips)"
      echo "jmeter_worker_ip_with_no_join=$(terraform output jmeter_workers_ip_list)"
      echo "new_ip_list=$(IP_LIST)"
-     
+     new_ip_list_no_spaces=$((IP_LIST) | sed 's/ //g')
+     echo $new_ip_list_no_spaces
 
      echo "end before az container logs"
    
