@@ -55,16 +55,19 @@ steps:
             echo "connection_Jmeter=$connection_Jmeter"
         
             $Worker_instance_name="Jmeter"
-            $IP_LIST="Empty"
+            $first_worker="Empty"
               if ("$connection_Jmeter" -eq $Worker_instance_name)
               {
                 echo "Jmeter RUN on container instance $Worker_name"
                 $worker_ip= Get-AzContainerGroup -Name $Worker_name  -ResourceGroupName $RG | fl |grep IPAddressIP |awk '{print $3}'
                 echo "The $Worker_name ip=$worker_ip"
               
-                  if ("$IP_LIST" -eq "Empty")
+                  if ("$first_worker" -eq "Empty")
                   {
                     $IP_LIST=$worker_ip
+                    $first_worker="no"
+                    echo "first_worker=$first_worker"
+
                    }
                    else
                    {
