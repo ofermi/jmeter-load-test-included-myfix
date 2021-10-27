@@ -109,9 +109,6 @@ steps:
               $SubscriptionId= "3acbc334-72a0-4b2d-b3bb-8498810f4955"
               $RG=$(terraform output resource_group_name)
               $ContainerName="jmeter"
-            
-            #Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId
-    
             $connection_Jmeter=Get-AzContainerInstanceLog -ContainerGroupName $Worker_name -ContainerName $ContainerName -ResourceGroupName $RG -SubscriptionId $SubscriptionId |grep 'Jmeter'| awk '{print $3}'
             echo "connection_Jmeter=$connection_Jmeter"
         
