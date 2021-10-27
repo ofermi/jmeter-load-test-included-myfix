@@ -96,9 +96,8 @@ steps:
        Install-Module -Name Az.ContainerInstance  -force
        $credential = New-Object System.Management.Automation.PSCredential ("${env:SPID}", (ConvertTo-SecureString ${env:SPKEY} -AsPlainText -Force))
        Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
-       
-        $list_workers=$(terraform output jmeter_workers_names)
-            
+       $list_workers=$(terraform output jmeter_workers_names)
+       # Defined parameters for If condiotions:
         $cnt = 1
         $first_worker="Empty"
         $IP_LIST="Empty"
