@@ -142,8 +142,10 @@ steps:
         Remove-Item env:\SPID
         Remove-Item env:\TID
 
-        $IP_LIST_No_SPACES=$(IP_LIST| awk '{ gsub(/ /,\"\"); print }')
-
+        $IP_LIST_No_SPACES="$(IP_LIST| awk '{ gsub(/ /,\"\"); print }')"
+        echo $IP_LIST_No_SPACES
+        $IP_LIST_No_SPACES1="$IP_LIST"| awk '{ gsub(/ /,\"\"); print }'
+        echo $IP_LIST_No_SPACES1
         echo "##vso[task.setvariable variable=IP_LIST]$IP_LIST_No_SPACES"
     pwsh: true
 
@@ -168,9 +170,8 @@ steps:
      echo "jmeter_worker_names=$(terraform output jmeter_workers_names)"
      echo "jmeter_worker_ip_with_join=$(terraform output jmeter_workers_ips)"
      echo "jmeter_worker_ip_with_no_join=$(terraform output jmeter_workers_ip_list)"
-     echo "new_ip_list=$(IP_LIST)"
-     new_ip_list_no_spaces=$((IP_LIST) | sed 's/ //g')
-     echo $new_ip_list_no_spaces
+     
+  
 
      echo "end before az container logs"
    
