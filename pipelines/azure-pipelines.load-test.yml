@@ -62,7 +62,7 @@ steps:
                 $worker_ip= Get-AzContainerGroup -Name $Worker_name  -ResourceGroupName $RG | fl |grep IPAddressIP |awk '{print $3}'
                 echo "The $Worker_name ip=$worker_ip"
               
-                  if ($IP_LIST -eq "Empty")
+                  if ("$IP_LIST" -eq "Empty")
                   {
                     $IP_LIST=$worker_ip
                    }
