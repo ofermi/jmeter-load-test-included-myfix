@@ -93,8 +93,8 @@ steps:
     targetType: "inline"
     script: |
        Install-Module -Name Az.ContainerInstance  -force
-      #       to install  all PS modules run:
-      #       Install-Module Az -Scope CurrentUser -Force -Verbose -RequiredVersion 5.3.0
+        #  to install  all PS modules run:
+        #  Install-Module Az -Scope CurrentUser -Force -Verbose -RequiredVersion 5.3.0
        $credential = New-Object System.Management.Automation.PSCredential ("${env:SPID}", (ConvertTo-SecureString ${env:SPKEY} -AsPlainText -Force))
        Connect-AzAccount -Credential $Credential -Tenant  ${env:TID} -ServicePrincipal
        $list_workers=$(terraform output jmeter_workers_names)
