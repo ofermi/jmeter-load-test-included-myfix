@@ -132,10 +132,8 @@ steps:
         Remove-Item env:\SPID
         Remove-Item env:\TID
 
-       # $IP_LIST_No_SPACES="$(IP_LIST| awk '{ gsub(/ /,\"\"); print }')"
-       # echo $IP_LIST_No_SPACES
-        $IP_LIST_No_SPACES1="$IP_LIST"| awk '{ gsub(/ /,\"\"); print }'
-        echo $IP_LIST_No_SPACES1
+        $IP_LIST_No_SPACES="$IP_LIST"| awk '{ gsub(/ /,\"\"); print }'
+        echo $IP_LIST_No_SPACES
         echo "##vso[task.setvariable variable=IP_LIST]$IP_LIST_No_SPACES"
     pwsh: true
 
