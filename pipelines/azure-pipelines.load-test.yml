@@ -68,26 +68,19 @@ steps:
                     $IP_LIST=$worker_ip
                     $first_worker="no"
                     echo "first_worker=$first_worker"
-
                    }
                    else
                    {
                     $IP_LIST=echo "$IP_LIST , $worker_ip"
                    } 
-              
-              }
-              else
-              {
-              echo "$Worker_name was canceled"
-                
-              }
-     
-              
+                 }
+               else
+                {
+                 echo "$Worker_name was canceled"
+                 }
               echo "IP_LIST=$IP_LIST"
-             
              $cnt++
-           
-         }
+          }
         Remove-Item env:\SPKEY
         Remove-Item env:\SPID
         Remove-Item env:\TID
