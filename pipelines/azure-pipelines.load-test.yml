@@ -203,7 +203,12 @@ steps:
      new_jmeter_controller_name=$((terraform output jmeter_controller_name) | grep 'controller'  | awk -F '\"' '{print $2}')
      echo "new_jmeter_controller_name=$new_jmeter_controller_name"
      echo $(terraform output resource_group_name)
-     echo "jmeter_worker_names="+$(terraform output jmeter_workers_names)
+     echo "jmeter_worker_names=$(terraform output jmeter_workers_names)"
+     echo "jmeter_worker_ip_with_join=$(terraform output jmeter_workers_ips)"
+     echo "jmeter_worker_ip_with_no_join=$(terraform output jmeter_workers_ip_list)
+     echo "new_ip_list=$(IP_LIST)"
+     echo "new_ip_list_join=join(",","${IP_LIST}")"
+
      echo "end before az container logs"
    
       az container logs -g $(terraform output resource_group_name) -n $new_jmeter_controller_name
