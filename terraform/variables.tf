@@ -1,6 +1,6 @@
 variable "RESOURCE_GROUP_NAME" {
   type    = string
-  default = "jmete26"
+  default = "jmete27"
 }
 
 
@@ -21,7 +21,7 @@ variable "LOCATION" {
 
 variable "PREFIX" {
   type    = string
-  default = "jmete26"
+  default = "jmete27"
 }
 
 variable "VNET_ADDRESS_SPACE" {
