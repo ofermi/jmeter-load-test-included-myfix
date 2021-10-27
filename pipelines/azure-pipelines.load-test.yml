@@ -42,6 +42,8 @@ steps:
         
             
         $cnt = 1
+        $first_worker="Empty"
+        $IP_LIST="Empty"
         foreach ($Worker_name in $list_workers.Split(","))
         {
          
@@ -55,9 +57,7 @@ steps:
             echo "connection_Jmeter=$connection_Jmeter"
         
             $Worker_instance_name="Jmeter"
-            $first_worker="Empty"
-            $IP_LIST="Empty"
-              if ("$connection_Jmeter" -eq $Worker_instance_name)
+             if ("$connection_Jmeter" -eq $Worker_instance_name)
               {
                 echo "Jmeter RUN on container instance $Worker_name"
                 $worker_ip= Get-AzContainerGroup -Name $Worker_name  -ResourceGroupName $RG | fl |grep IPAddressIP |awk '{print $3}'
@@ -66,7 +66,7 @@ steps:
                   if ($IP_LIST -eq $first_worker)
                   {
                     $IP_LIST=$worker_ip
-                    $first_worker="no"
+
                     echo "first_worker=$first_worker"
                    }
                    else
