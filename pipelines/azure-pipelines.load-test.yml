@@ -94,7 +94,7 @@ steps:
      echo "jmeter_worker_ip_with_join=$(terraform output jmeter_workers_ips)"
      echo "jmeter_worker_ip_with_no_join=$(terraform output jmeter_workers_ip_list)
      echo "new_ip_list=$(IP_LIST)"
-      #echo "new_ip_list_join=join(",","${IP_LIST}")"
+      # echo "new_ip_list_join=join(",","${IP_LIST}")"
 
      echo "end before az container logs"
    
